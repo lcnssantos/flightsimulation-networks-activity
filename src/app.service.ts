@@ -36,9 +36,9 @@ export class AppService {
     await this.repository.save({ ivao, poscon, vatsim, date: new Date() });
   }
 
-  getHistory() {
+  getHistoryByMinutes(minutes: number) {
     return this.repository.find({
-      where: { date: { $gt: new Date(Date.now() - 24 * 60 * 60 * 1000) } },
+      where: { date: { $gt: new Date(Date.now() - minutes * 60 * 1000) } },
     } as any);
   }
 }

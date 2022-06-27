@@ -1,4 +1,4 @@
-import { Controller, Get, Post } from '@nestjs/common';
+import { Controller, Get, Param, Post } from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller()
@@ -17,6 +17,11 @@ export class AppController {
 
   @Get('/history/24h')
   getHistory() {
-    return this.appService.getHistory();
+    return this.appService.getHistoryByMinutes(24 * 60);
+  }
+
+  @Get('/history/:minutes')
+  getHistoryByFilter(@Param('minutes') minutes: string) {
+    return this.appService.getHistoryByMinutes(Number(minutes));
   }
 }
