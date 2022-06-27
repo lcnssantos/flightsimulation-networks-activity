@@ -19,7 +19,6 @@ export class VatsimOnline implements OnlineService {
         return {
           atc: data.controllers.length,
           pilot: data.pilots.length,
-          time: new Date(),
         };
       });
   }

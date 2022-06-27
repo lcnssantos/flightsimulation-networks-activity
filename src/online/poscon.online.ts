@@ -19,7 +19,6 @@ export class PosconOnline implements OnlineService {
         return {
           atc: data.atc.length,
           pilot: data.flights.length,
-          time: new Date(),
         };
       });
   }

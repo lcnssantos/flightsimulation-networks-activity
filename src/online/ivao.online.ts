@@ -18,7 +18,6 @@ export class IVAOOnline implements OnlineService {
         return {
           atc: data.clients.atcs.length,
           pilot: data.clients.pilots.length,
-          time: new Date(),
         };
       });
   }
