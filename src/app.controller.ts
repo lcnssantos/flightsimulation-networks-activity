@@ -14,4 +14,9 @@ export class AppController {
   saveActivity() {
     return this.appService.saveActivity();
   }
+
+  @Get('/history/24h')
+  getHistory() {
+    return this.appService.getHistory();
+  }
 }

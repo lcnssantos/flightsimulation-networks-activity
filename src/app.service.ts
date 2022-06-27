@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { MongoRepository } from 'typeorm';
 import { NetworksActivity } from './online/activity';
 import { IVAOOnline } from './online/ivao.online';
 import { PosconOnline } from './online/poscon.online';
@@ -13,7 +13,7 @@ export class AppService {
     private vatsimOnline: VatsimOnline,
     private posconOnline: PosconOnline,
     @InjectRepository(NetworksActivity)
-    private repository: Repository<NetworksActivity>,
+    private repository: MongoRepository<NetworksActivity>,
   ) {}
 
   async getActivity(): Promise<NetworksActivity> {
@@ -33,6 +33,12 @@ export class AppService {
       this.posconOnline.getActivity(),
     ]);
 
-    await this.repository.save({ ivao, poscon, vatsim });
+    await this.repository.save({ ivao, poscon, vatsim, date: new Date() });
+  }
+
+  getHistory() {
+    return this.repository.find({
+      where: { date: { $gt: new Date(Date.now() - 24 * 60 * 60 * 1000) } },
+    } as any);
   }
 }

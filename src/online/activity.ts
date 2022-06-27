@@ -12,6 +12,9 @@ export class NetworksActivity {
   id: string;
 
   @Column()
+  date: Date;
+
+  @Column()
   ivao: Activity;
 
   @Column()
