@@ -4,7 +4,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { getConfiguration } from './configuration';
-import { NetworksActivity } from './online/activity';
+import { FirService } from './firs/firs.service';
+import { GeoLocator } from './geo/geo.locator';
+import { BrazilNetworksActivity, NetworksActivity } from './online/activity';
 import { IVAOOnline } from './online/ivao.online';
 import { PosconOnline } from './online/poscon.online';
 import { VatsimOnline } from './online/vatsim.online';
@@ -15,16 +17,23 @@ import { VatsimOnline } from './online/vatsim.online';
     TypeOrmModule.forRoot({
       type: 'mongodb',
       url: getConfiguration().MONGO_URL,
-      entities: [NetworksActivity],
+      entities: [NetworksActivity, BrazilNetworksActivity],
       logger: 'simple-console',
       logging: true,
       ssl: getConfiguration().MONGO_SSL === 'true',
       useUnifiedTopology: true,
       useNewUrlParser: true,
     }),
-    TypeOrmModule.forFeature([NetworksActivity]),
+    TypeOrmModule.forFeature([NetworksActivity, BrazilNetworksActivity]),
   ],
   controllers: [AppController],
-  providers: [PosconOnline, VatsimOnline, IVAOOnline, AppService],
+  providers: [
+    GeoLocator,
+    FirService,
+    PosconOnline,
+    VatsimOnline,
+    IVAOOnline,
+    AppService,
+  ],
 })
 export class AppModule {}

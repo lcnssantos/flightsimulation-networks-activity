@@ -10,9 +10,15 @@ export class AppController {
     return this.appService.getActivity();
   }
 
+  @Get('/current/br')
+  getBRActivity() {
+    return this.appService.getBrazilActivity();
+  }
+
   @Post('/current')
-  saveActivity() {
-    return this.appService.saveActivity();
+  async saveActivity() {
+    await this.appService.saveActivity();
+    await this.appService.saveActivityBR();
   }
 
   @Get('/history/24h')
@@ -23,5 +29,15 @@ export class AppController {
   @Get('/history/:minutes')
   getHistoryByFilter(@Param('minutes') minutes: string) {
     return this.appService.getHistoryByMinutes(Number(minutes));
+  }
+
+  @Get('/history/br/24h')
+  getBRHistory() {
+    return this.appService.getBRHistoryByMinutes(24 * 60);
+  }
+
+  @Get('/history/br/:minutes')
+  getBRHistoryByFilter(@Param('minutes') minutes: string) {
+    return this.appService.getBRHistoryByMinutes(Number(minutes));
   }
 }

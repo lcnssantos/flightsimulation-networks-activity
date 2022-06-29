@@ -22,3 +22,21 @@ export class NetworksActivity {
   @Column()
   poscon: Activity;
 }
+
+@Entity('br_activity')
+export class BrazilNetworksActivity {
+  @ObjectIdColumn()
+  id: string;
+
+  @Column()
+  date: Date;
+
+  @Column()
+  ivao: Activity;
+
+  @Column()
+  vatsim: Activity;
+
+  @Column()
+  poscon: Activity;
+}

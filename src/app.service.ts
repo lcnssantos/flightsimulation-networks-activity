@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { MongoRepository } from 'typeorm';
-import { NetworksActivity } from './online/activity';
+import { BrazilNetworksActivity, NetworksActivity } from './online/activity';
 import { IVAOOnline } from './online/ivao.online';
 import { PosconOnline } from './online/poscon.online';
 import { VatsimOnline } from './online/vatsim.online';
@@ -13,7 +13,9 @@ export class AppService {
     private vatsimOnline: VatsimOnline,
     private posconOnline: PosconOnline,
     @InjectRepository(NetworksActivity)
-    private repository: MongoRepository<NetworksActivity>,
+    private activityRepository: MongoRepository<NetworksActivity>,
+    @InjectRepository(BrazilNetworksActivity)
+    private brazilActivityRepository: MongoRepository<BrazilNetworksActivity>,
   ) {}
 
   async getActivity(): Promise<NetworksActivity> {
@@ -23,7 +25,7 @@ export class AppService {
       this.posconOnline.getActivity(),
     ]);
 
-    return this.repository.create({ ivao, vatsim, poscon });
+    return this.activityRepository.create({ ivao, vatsim, poscon });
   }
 
   async saveActivity(): Promise<void> {
@@ -33,12 +35,48 @@ export class AppService {
       this.posconOnline.getActivity(),
     ]);
 
-    await this.repository.save({ ivao, poscon, vatsim, date: new Date() });
+    await this.activityRepository.save({
+      ivao,
+      poscon,
+      vatsim,
+      date: new Date(),
+    });
+  }
+
+  async saveActivityBR(): Promise<void> {
+    const [ivao, vatsim, poscon] = await Promise.all([
+      this.ivaoOnline.getBrazilActivity(),
+      this.vatsimOnline.getBrazilActivity(),
+      this.posconOnline.getBrazilActivity(),
+    ]);
+
+    await this.brazilActivityRepository.save({
+      ivao,
+      poscon,
+      vatsim,
+      date: new Date(),
+    });
   }
 
   getHistoryByMinutes(minutes: number) {
-    return this.repository.find({
+    return this.activityRepository.find({
       where: { date: { $gt: new Date(Date.now() - minutes * 60 * 1000) } },
     } as any);
+  }
+
+  getBRHistoryByMinutes(minutes: number) {
+    return this.brazilActivityRepository.find({
+      where: { date: { $gt: new Date(Date.now() - minutes * 60 * 1000) } },
+    } as any);
+  }
+
+  async getBrazilActivity() {
+    const [ivao, vatsim, poscon] = await Promise.all([
+      this.ivaoOnline.getBrazilActivity(),
+      this.vatsimOnline.getBrazilActivity(),
+      this.posconOnline.getBrazilActivity(),
+    ]);
+
+    return { ivao, vatsim, poscon };
   }
 }
