@@ -15,6 +15,10 @@ export class PosconOnline implements OnlineService {
 
   private getFirActivity(data: any, icao: string): Activity {
     const pilots = data.flights.filter((pilot) => {
+      if (!pilot.position) {
+        return false;
+      }
+
       return this.firService.isInsideFir(
         {
           lat: pilot.position.lat,

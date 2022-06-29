@@ -15,6 +15,10 @@ export class VatsimOnline implements OnlineService {
 
   private getFirActivity(data: any, icao: string): Activity {
     const pilots = data.pilots.filter((pilot) => {
+      if (!pilot.latitude || !pilot.longitude) {
+        return false;
+      }
+
       return this.firService.isInsideFir(
         {
           lat: pilot.latitude,
