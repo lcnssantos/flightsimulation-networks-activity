@@ -13,8 +13,8 @@ type MongoDriver struct {
 	dbName           string
 }
 
-func NewMongoDriver(connectionString string, dbName string) *MongoDriver {
-	return &MongoDriver{connectionString: connectionString, dbName: dbName}
+func NewMongoDriver(connectionString string, dbName string) MongoDriver {
+	return MongoDriver{connectionString: connectionString, dbName: dbName}
 }
 
 func (d MongoDriver) GetClient() (*mongo.Client, error) {

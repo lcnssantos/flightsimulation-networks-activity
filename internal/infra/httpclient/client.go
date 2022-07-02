@@ -13,8 +13,8 @@ type HttpClient struct {
 	httpClient *http.Client
 }
 
-func NewHttpClient() *HttpClient {
-	return &HttpClient{
+func NewHttpClient() HttpClient {
+	return HttpClient{
 		httpClient: &http.Client{Timeout: time.Duration(20) * time.Second},
 	}
 }

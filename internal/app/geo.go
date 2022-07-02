@@ -22,8 +22,9 @@ func (g GeoService) IsInside(points []domain.Point, _point domain.Point) bool {
 
 	result := false
 
-	for i, j := 0, len(polygon); i < len(polygon); i++ {
-		if (polygon[i][1] > point[1]) != (polygon[j][1] > point[1]) && point[0] < (polygon[j][0]-polygon[i][0])*(point[1]-polygon[i][1])/(polygon[j][1]-polygon[i][1])+polygon[i][0] {
+	for i, j := 0, len(polygon)-1; i < len(polygon); i++ {
+		if (polygon[i][1] > point[1]) != (polygon[j][1] > point[1]) &&
+			point[0] < ((polygon[j][0]-polygon[i][0])*(point[1]-polygon[i][1]))/(polygon[j][1]-polygon[i][1])+polygon[i][0] {
 			result = !result
 		}
 		j = i

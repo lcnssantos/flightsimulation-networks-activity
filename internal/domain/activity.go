@@ -10,7 +10,7 @@ type Activity struct {
 type GeoActivity map[string]Activity
 
 type NetworkActivity struct {
-	ID     string    `json:"id"`
+	//ID     string    `json:"_id"`
 	Date   time.Time `json:"date"`
 	IVAO   Activity  `json:"ivao"`
 	VATSIM Activity  `json:"vatsim"`
@@ -18,7 +18,7 @@ type NetworkActivity struct {
 }
 
 type GeoNetworkActivity struct {
-	ID     string      `json:"id"`
+	//ID     string      `json:"_id"`
 	Date   time.Time   `json:"date"`
 	IVAO   GeoActivity `json:"ivao"`
 	VATSIM GeoActivity `json:"vatsim"`

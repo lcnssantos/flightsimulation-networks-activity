@@ -18,7 +18,7 @@ type VATSIM struct {
 }
 
 func NewVatsim(httpCLient httpclient.HttpClient, firService app.FirService) *VATSIM {
-	return &VATSIM{httpClient: httpCLient, firService: firService}
+	return &VATSIM{httpClient: httpCLient, firService: firService, transceiverData: map[string]*domain.Point{}}
 }
 
 func (v *VATSIM) loadData(ctx context.Context) (*vatsimData, error) {
@@ -32,10 +32,11 @@ func (v *VATSIM) loadData(ctx context.Context) (*vatsimData, error) {
 
 	for _, transceiver := range transceiverData {
 		if len(transceiver.Transceivers) > 0 {
-			v.transceiverData[transceiver.Callsign] = &domain.Point{
-				Lat: transceiver.Transceivers[0].Latitude,
-				Lon: transceiver.Transceivers[0].Longitude,
+			v.transceiverData[*transceiver.Callsign] = &domain.Point{
+				Lat: *transceiver.Transceivers[0].Latitude,
+				Lon: *transceiver.Transceivers[0].Longitude,
 			}
+
 		}
 	}
 
@@ -64,12 +65,6 @@ func (v *VATSIM) GetActivity(ctx context.Context) (*domain.Activity, error) {
 }
 
 func (v *VATSIM) GetBrazilActivity(ctx context.Context) (*domain.Activity, error) {
-	err := v.firService.LoadFirData(ctx)
-
-	if err != nil {
-		return nil, err
-	}
-
 	data, err := v.loadData(ctx)
 
 	if err != nil {
@@ -114,12 +109,6 @@ func (v *VATSIM) GetBrazilActivity(ctx context.Context) (*domain.Activity, error
 }
 
 func (v *VATSIM) GetGeoActivity(ctx context.Context) (*domain.GeoActivity, error) {
-	err := v.firService.LoadFirData(ctx)
-
-	if err != nil {
-		return nil, err
-	}
-
 	data, err := v.loadData(ctx)
 
 	if err != nil {
@@ -131,6 +120,7 @@ func (v *VATSIM) GetGeoActivity(ctx context.Context) (*domain.GeoActivity, error
 	for _, pilot := range data.Pilots {
 		if pilot.Latitude == nil || pilot.Longitude == nil {
 			count.increment("UNKNOWN", "pilot")
+			break
 		}
 
 		country, err := v.firService.DetectCountryByPoint(domain.Point{
@@ -150,6 +140,7 @@ func (v *VATSIM) GetGeoActivity(ctx context.Context) (*domain.GeoActivity, error
 
 		if point == nil {
 			count.increment("UNKNOWN", "atc")
+			break
 		}
 
 		country, err := v.firService.DetectCountryByPoint(*point)

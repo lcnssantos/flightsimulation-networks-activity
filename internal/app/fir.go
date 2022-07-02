@@ -3,10 +3,9 @@ package app
 import (
 	"context"
 	"errors"
-	"strings"
-
 	"github.com/lcnssantos/online-activity/internal/domain"
 	"github.com/lcnssantos/online-activity/internal/infra/httpclient"
+	"strings"
 )
 
 type GeoFeatureProperty struct {
@@ -44,11 +43,13 @@ type FirService struct {
 	firsCountry  map[string]*string
 }
 
-func NewFirService(geoService GeoService, httpClient httpclient.HttpClient) *FirService {
-	return &FirService{
-		geoService: geoService,
-		httpClient: httpClient,
-		endpoint:   "https://map.vatsim.net/livedata/firboundaries.json",
+func NewFirService(geoService GeoService, httpClient httpclient.HttpClient) FirService {
+	return FirService{
+		geoService:  geoService,
+		httpClient:  httpClient,
+		endpoint:    "https://map.vatsim.net/livedata/firboundaries.json",
+		firsCountry: map[string]*string{},
+		firsMap:     map[string]*domain.FIR{},
 	}
 }
 

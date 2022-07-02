@@ -2,6 +2,7 @@ package app
 
 import (
 	"context"
+	"github.com/lcnssantos/online-activity/internal/infra/concurrency"
 	"time"
 
 	"github.com/lcnssantos/online-activity/internal/domain"
@@ -19,8 +20,8 @@ func NewAppService(
 	posconFacade domain.Facade,
 	vatsimFacade domain.Facade,
 	repo domain.Repository,
-) *AppService {
-	return &AppService{
+) AppService {
+	return AppService{
 		ivaoFacade:   ivaoFacade,
 		posconFacade: posconFacade,
 		vatsimFacade: vatsimFacade,
@@ -29,22 +30,35 @@ func NewAppService(
 }
 
 func (a *AppService) loadActivity(ctx context.Context) (ivao *domain.Activity, vatsim *domain.Activity, poscon *domain.Activity, err error) {
-	ivao, err = a.ivaoFacade.GetActivity(ctx)
+	asyncTasks := concurrency.ExecuteConcurrentTasks(
+		func() (interface{}, error) {
+			return a.ivaoFacade.GetActivity(ctx)
+		}, func() (interface{}, error) {
+			return a.posconFacade.GetActivity(ctx)
+		}, func() (interface{}, error) {
+			return a.vatsimFacade.GetActivity(ctx)
+		})
 
-	if err != nil {
-		return
+	ivaoTask := asyncTasks[0]
+	posconTask := asyncTasks[1]
+	vatsimTask := asyncTasks[2]
+
+	if ivaoTask.Err != nil {
+		ivao = &domain.Activity{Pilot: 0, ATC: 0}
+	} else {
+		ivao = ivaoTask.Result.(*domain.Activity)
 	}
 
-	poscon, err = a.posconFacade.GetActivity(ctx)
-
-	if err != nil {
-		return
+	if posconTask.Err != nil {
+		poscon = &domain.Activity{Pilot: 0, ATC: 0}
+	} else {
+		poscon = posconTask.Result.(*domain.Activity)
 	}
 
-	vatsim, err = a.vatsimFacade.GetActivity(ctx)
-
-	if err != nil {
-		return
+	if vatsimTask.Err != nil {
+		vatsim = &domain.Activity{Pilot: 0, ATC: 0}
+	} else {
+		vatsim = vatsimTask.Result.(*domain.Activity)
 	}
 
 	return
@@ -85,22 +99,35 @@ func (a *AppService) GetHistoryByMinutes(ctx context.Context, minutes int64) ([]
 }
 
 func (a *AppService) loadBrazilActivity(ctx context.Context) (ivao *domain.Activity, vatsim *domain.Activity, poscon *domain.Activity, err error) {
-	ivao, err = a.ivaoFacade.GetBrazilActivity(ctx)
+	asyncTasks := concurrency.ExecuteConcurrentTasks(
+		func() (interface{}, error) {
+			return a.ivaoFacade.GetBrazilActivity(ctx)
+		}, func() (interface{}, error) {
+			return a.posconFacade.GetBrazilActivity(ctx)
+		}, func() (interface{}, error) {
+			return a.vatsimFacade.GetBrazilActivity(ctx)
+		})
 
-	if err != nil {
-		return
+	ivaoTask := asyncTasks[0]
+	posconTask := asyncTasks[1]
+	vatsimTask := asyncTasks[2]
+
+	if ivaoTask.Err != nil {
+		ivao = &domain.Activity{Pilot: 0, ATC: 0}
+	} else {
+		ivao = ivaoTask.Result.(*domain.Activity)
 	}
 
-	poscon, err = a.posconFacade.GetBrazilActivity(ctx)
-
-	if err != nil {
-		return
+	if posconTask.Err != nil {
+		poscon = &domain.Activity{Pilot: 0, ATC: 0}
+	} else {
+		poscon = posconTask.Result.(*domain.Activity)
 	}
 
-	vatsim, err = a.vatsimFacade.GetBrazilActivity(ctx)
-
-	if err != nil {
-		return
+	if vatsimTask.Err != nil {
+		vatsim = &domain.Activity{Pilot: 0, ATC: 0}
+	} else {
+		vatsim = vatsimTask.Result.(*domain.Activity)
 	}
 
 	return
@@ -141,22 +168,35 @@ func (a *AppService) GetBrazilHistoryByMinutes(ctx context.Context, minutes int6
 }
 
 func (a *AppService) loadGeoActivity(ctx context.Context) (ivao *domain.GeoActivity, vatsim *domain.GeoActivity, poscon *domain.GeoActivity, err error) {
-	ivao, err = a.ivaoFacade.GetGeoActivity(ctx)
+	asyncTasks := concurrency.ExecuteConcurrentTasks(
+		func() (interface{}, error) {
+			return a.ivaoFacade.GetGeoActivity(ctx)
+		}, func() (interface{}, error) {
+			return a.posconFacade.GetGeoActivity(ctx)
+		}, func() (interface{}, error) {
+			return a.vatsimFacade.GetGeoActivity(ctx)
+		})
 
-	if err != nil {
-		return
+	ivaoTask := asyncTasks[0]
+	posconTask := asyncTasks[1]
+	vatsimTask := asyncTasks[2]
+
+	if ivaoTask.Err != nil {
+		ivao = &domain.GeoActivity{}
+	} else {
+		ivao = ivaoTask.Result.(*domain.GeoActivity)
 	}
 
-	poscon, err = a.posconFacade.GetGeoActivity(ctx)
-
-	if err != nil {
-		return
+	if posconTask.Err != nil {
+		poscon = &domain.GeoActivity{}
+	} else {
+		poscon = posconTask.Result.(*domain.GeoActivity)
 	}
 
-	vatsim, err = a.vatsimFacade.GetGeoActivity(ctx)
-
-	if err != nil {
-		return
+	if vatsimTask.Err != nil {
+		vatsim = &domain.GeoActivity{}
+	} else {
+		vatsim = vatsimTask.Result.(*domain.GeoActivity)
 	}
 
 	return

@@ -65,13 +65,13 @@ func (r *Repository) SaveGeoActivity(ctx context.Context, activity domain.GeoNet
 }
 
 func (r *Repository) GetBrazilActivityByMinutes(ctx context.Context, minutes int64) ([]domain.NetworkActivity, error) {
+	output := make([]domain.NetworkActivity, 0)
+
 	db, err := r.getMongoDB()
 
 	if err != nil {
-		return []domain.NetworkActivity{}, err
+		return output, err
 	}
-
-	var output []domain.NetworkActivity
 
 	cursor, err := db.Collection("br_activity").Find(ctx, bson.M{"date": bson.M{
 		"$gte": primitive.NewDateTimeFromTime(time.Now().Add(-time.Duration(minutes) * time.Minute)),
@@ -89,13 +89,13 @@ func (r *Repository) GetBrazilActivityByMinutes(ctx context.Context, minutes int
 }
 
 func (r *Repository) GetActivityByMinutes(ctx context.Context, minutes int64) ([]domain.NetworkActivity, error) {
+	output := make([]domain.NetworkActivity, 0)
+
 	db, err := r.getMongoDB()
 
 	if err != nil {
-		return []domain.NetworkActivity{}, err
+		return output, err
 	}
-
-	var output []domain.NetworkActivity
 
 	cursor, err := db.Collection("activity").Find(ctx, bson.M{"date": bson.M{
 		"$gte": primitive.NewDateTimeFromTime(time.Now().Add(-time.Duration(minutes) * time.Minute)),
@@ -113,7 +113,7 @@ func (r *Repository) GetActivityByMinutes(ctx context.Context, minutes int64) ([
 }
 
 func (r *Repository) GetGeoActivityByMinutes(ctx context.Context, minutes int64) ([]domain.GeoNetworkActivity, error) {
-	var output []domain.GeoNetworkActivity
+	output := make([]domain.GeoNetworkActivity, 0)
 
 	db, err := r.getMongoDB()
 

@@ -45,12 +45,6 @@ func (p *Poscon) GetActivity(ctx context.Context) (*domain.Activity, error) {
 }
 
 func (p *Poscon) GetBrazilActivity(ctx context.Context) (*domain.Activity, error) {
-	err := p.firService.LoadFirData(ctx)
-
-	if err != nil {
-		return nil, err
-	}
-
 	data, err := p.loadData(ctx)
 
 	if err != nil {
@@ -98,12 +92,6 @@ func (p *Poscon) GetBrazilActivity(ctx context.Context) (*domain.Activity, error
 }
 
 func (p *Poscon) GetGeoActivity(ctx context.Context) (*domain.GeoActivity, error) {
-	err := p.firService.LoadFirData(ctx)
-
-	if err != nil {
-		return nil, err
-	}
-
 	data, err := p.loadData(ctx)
 
 	if err != nil {
@@ -115,6 +103,7 @@ func (p *Poscon) GetGeoActivity(ctx context.Context) (*domain.GeoActivity, error
 	for _, pilot := range data.Flights {
 		if pilot.Position == nil {
 			count.increment("UNKNOWN", "pilot")
+			break
 		}
 
 		country, err := p.firService.DetectCountryByPoint(domain.Point{
@@ -132,6 +121,7 @@ func (p *Poscon) GetGeoActivity(ctx context.Context) (*domain.GeoActivity, error
 	for _, atc := range data.Atc {
 		if atc.CenterPoint == nil || len(*atc.CenterPoint) == 0 {
 			count.increment("UNKNOWN", "atc")
+			break
 		}
 
 		country := p.firService.DetectCountryByFIRCode(atc.Fir)

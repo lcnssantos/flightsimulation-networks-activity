@@ -1,8 +1,8 @@
 package ivao
 
 type ivaoLastTrack struct {
-	latitude  float64 `json:"latitude"`
-	longitude float64 `json:"longitude"`
+	Latitude  float64 `json:"latitude"`
+	Longitude float64 `json:"longitude"`
 }
 
 type ivaoFlight struct {

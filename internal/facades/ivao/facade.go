@@ -45,12 +45,6 @@ func (i *IVAO) GetActivity(ctx context.Context) (*domain.Activity, error) {
 }
 
 func (i *IVAO) GetBrazilActivity(ctx context.Context) (*domain.Activity, error) {
-	err := i.firService.LoadFirData(ctx)
-
-	if err != nil {
-		return nil, err
-	}
-
 	data, err := i.loadData(ctx)
 
 	if err != nil {
@@ -68,8 +62,8 @@ func (i *IVAO) GetBrazilActivity(ctx context.Context) (*domain.Activity, error) 
 		if pilot.LastTrack != nil {
 			for _, fir := range firs {
 				isInsideFir, err := i.firService.IsInsideFIR(domain.Point{
-					Lat: pilot.LastTrack.latitude,
-					Lon: pilot.LastTrack.longitude,
+					Lat: pilot.LastTrack.Latitude,
+					Lon: pilot.LastTrack.Longitude,
 				}, fir)
 
 				if err != nil {
@@ -86,10 +80,14 @@ func (i *IVAO) GetBrazilActivity(ctx context.Context) (*domain.Activity, error) 
 	}
 
 	for _, atc := range data.Clients.ATCs {
+		if atc.LastTrack == nil {
+			break
+		}
+
 		for _, fir := range firs {
 			isInsideFir, err := i.firService.IsInsideFIR(domain.Point{
-				Lat: atc.LastTrack.latitude,
-				Lon: atc.LastTrack.longitude,
+				Lat: atc.LastTrack.Latitude,
+				Lon: atc.LastTrack.Longitude,
 			}, fir)
 
 			if err != nil {
@@ -108,12 +106,6 @@ func (i *IVAO) GetBrazilActivity(ctx context.Context) (*domain.Activity, error) 
 }
 
 func (i *IVAO) GetGeoActivity(ctx context.Context) (*domain.GeoActivity, error) {
-	err := i.firService.LoadFirData(ctx)
-
-	if err != nil {
-		return nil, err
-	}
-
 	data, err := i.loadData(ctx)
 
 	if err != nil {
@@ -122,14 +114,15 @@ func (i *IVAO) GetGeoActivity(ctx context.Context) (*domain.GeoActivity, error) 
 
 	count := newCount()
 
-	for _, pilot := range data.Clients.ATCs {
+	for _, pilot := range data.Clients.Pilots {
 		if pilot.LastTrack == nil {
 			count.increment("UNKNOWN", "pilot")
+			break
 		}
 
 		country, err := i.firService.DetectCountryByPoint(domain.Point{
-			Lat: pilot.LastTrack.latitude,
-			Lon: pilot.LastTrack.longitude,
+			Lat: pilot.LastTrack.Latitude,
+			Lon: pilot.LastTrack.Longitude,
 		})
 
 		if err != nil {
@@ -142,11 +135,12 @@ func (i *IVAO) GetGeoActivity(ctx context.Context) (*domain.GeoActivity, error) 
 	for _, atc := range data.Clients.ATCs {
 		if atc.LastTrack == nil {
 			count.increment("UNKNOWN", "atc")
+			break
 		}
 
 		country, err := i.firService.DetectCountryByPoint(domain.Point{
-			Lat: atc.LastTrack.latitude,
-			Lon: atc.LastTrack.longitude,
+			Lat: atc.LastTrack.Latitude,
+			Lon: atc.LastTrack.Longitude,
 		})
 
 		if err != nil {
