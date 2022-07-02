@@ -1,17 +1,102 @@
 import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
-import { FirService } from 'src/firs/firs.service';
-import { Activity } from './activity';
+import { FirService, Point } from 'src/firs/firs.service';
+import { Activity, GeoActivity } from './activity';
 import { OnlineService } from './online.interface';
+
+const UNKNOWN = 'UNKNOWN';
+class Count {
+  private map: Map<string, Activity> = new Map();
+
+  public increment(id: string, type: string) {
+    const count = this.map.get(id) || { atc: 0, pilot: 0 };
+    if (type === 'atc') {
+      this.map.set(id, { ...count, atc: count.atc + 1 });
+    } else if (type === 'pilot') {
+      this.map.set(id, { ...count, pilot: count.pilot + 1 });
+    }
+  }
+
+  public get() {
+    return this.map;
+  }
+}
 
 @Injectable()
 export class VatsimOnline implements OnlineService {
   private whazzupHost = 'https://data.vatsim.net/v3/vatsim-data.json';
+  private transceiverHost = 'https://data.vatsim.net/v3/transceivers-data.json';
+  private transceiverData: Map<string, Point> = new Map();
 
   constructor(
     private readonly httpService: HttpService,
     private firService: FirService,
-  ) {}
+  ) {
+    this.httpService
+      .get(this.transceiverHost)
+      .toPromise()
+      .then((r) => {
+        const data = r.data;
+        for (const transceiver of data) {
+          if (transceiver.transceivers.length > 0) {
+            this.transceiverData.set(transceiver.callsign, {
+              lat: transceiver.transceivers[0].latDeg,
+              lng: transceiver.transceivers[0].lonDeg,
+            });
+          }
+        }
+      });
+  }
+
+  async getActivityByRegion(): Promise<GeoActivity> {
+    await this.firService.loadFirData();
+
+    const data = await this.httpService
+      .get(this.whazzupHost)
+      .toPromise()
+      .then((response) => response.data);
+
+    const count = new Count();
+
+    for (const pilot of data.pilots) {
+      try {
+        if (!pilot.latitude || !pilot.longitude) {
+          throw new Error();
+        }
+
+        const fir = this.firService.detectCountryByPoint({
+          lat: pilot.latitude,
+          lng: pilot.longitude,
+        });
+        count.increment(fir, 'pilot');
+      } catch {
+        count.increment(UNKNOWN, 'pilot');
+      }
+    }
+
+    for (const atc of data.controllers) {
+      try {
+        const point = this.transceiverData.get(atc.callsign);
+
+        if (!point) {
+          throw new Error();
+        }
+
+        const country = this.firService.detectCountryByPoint(point);
+
+        count.increment(country, 'atc');
+      } catch {
+        count.increment(UNKNOWN, 'atc');
+      }
+    }
+
+    const map = count.get();
+
+    return [...map.keys()].reduce((acc, key) => {
+      acc[key] = map.get(key);
+      return acc;
+    }, {});
+  }
 
   private getFirActivity(data: any, icao: string): Activity {
     const pilots = data.pilots.filter((pilot) => {
@@ -46,7 +131,7 @@ export class VatsimOnline implements OnlineService {
       return atc.callsign.startsWith('SB') || atc.callsign.startsWith('SD');
     });
 
-    await Promise.all(firs.map((fir) => this.firService.loadPointsByFIR(fir)));
+    await this.firService.loadFirData();
 
     return Promise.all(firs.map((fir) => this.getFirActivity(data, fir)))
       .then((activities) =>

@@ -40,3 +40,24 @@ export class BrazilNetworksActivity {
   @Column()
   poscon: Activity;
 }
+
+export class GeoActivity {
+  [fir: string]: Activity;
+}
+@Entity('geo_activity')
+export class GeoNetworksActivity {
+  @ObjectIdColumn()
+  id: string;
+
+  @Column()
+  date: Date;
+
+  @Column()
+  ivao: GeoActivity;
+
+  @Column()
+  vatsim: GeoActivity;
+
+  @Column()
+  poscon: GeoActivity;
+}

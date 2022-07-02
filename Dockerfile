@@ -8,5 +8,6 @@ RUN yarn
 RUN yarn build
 
 RUN cp src/firs/firs.json dist/firs
+RUN cp src/firs/firs_countries.json dist/firs
 
 CMD ["yarn", "run", "start:prod"]

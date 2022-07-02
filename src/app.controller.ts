@@ -15,10 +15,16 @@ export class AppController {
     return this.appService.getBrazilActivity();
   }
 
+  @Get('/current/geo')
+  getGeoActivity() {
+    return this.appService.getGeoActivity();
+  }
+
   @Post('/current')
   async saveActivity() {
     await this.appService.saveActivity();
     await this.appService.saveActivityBR();
+    await this.appService.saveActivityByRegion();
   }
 
   @Get('/history/24h')
@@ -39,5 +45,15 @@ export class AppController {
   @Get('/history/br/:minutes')
   getBRHistoryByFilter(@Param('minutes') minutes: string) {
     return this.appService.getBRHistoryByMinutes(Number(minutes));
+  }
+
+  @Get('/history/geo/24h')
+  getGeoHistory() {
+    return this.appService.getGeoHistoryByMinutes(24 * 60);
+  }
+
+  @Get('/history/geo/:minutes')
+  getGeoHistoryByFilter(@Param('minutes') minutes: string) {
+    return this.appService.getGeoHistoryByMinutes(Number(minutes));
   }
 }
