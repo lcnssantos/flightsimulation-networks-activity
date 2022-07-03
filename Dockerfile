@@ -1,13 +1,10 @@
-FROM keymetrics/pm2:14-alpine
+FROM golang:1.18-alpine
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
-COPY . ./
-RUN yarn
+COPY . .
+RUN go mod download
 
-RUN yarn build
+RUN go build cmd/main.go
 
-RUN cp src/firs/firs.json dist/firs
-RUN cp src/firs/firs_countries.json dist/firs
-
-CMD ["yarn", "run", "start:prod"]
+CMD [ "./main" ]
