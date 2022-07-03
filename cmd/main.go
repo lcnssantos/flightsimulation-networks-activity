@@ -18,7 +18,7 @@ import (
 func main() {
 	godotenv.Load()
 
-	zerolog.SetGlobalLevel(zerolog.InfoLevel)
+	zerolog.SetGlobalLevel(zerolog.ErrorLevel)
 
 	configuration.LoadEnv()
 
