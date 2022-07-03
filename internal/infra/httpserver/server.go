@@ -17,6 +17,8 @@ func NewServer(port int, controller Controller) Server {
 }
 
 func (s *Server) Listen() {
+	gin.SetMode(gin.ReleaseMode)
+
 	s.gin = gin.Default()
 
 	s.startRouter()
