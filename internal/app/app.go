@@ -3,6 +3,7 @@ package app
 import (
 	"context"
 	"github.com/lcnssantos/online-activity/internal/infra/concurrency"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"time"
 
 	"github.com/lcnssantos/online-activity/internal/domain"
@@ -87,6 +88,7 @@ func (a *AppService) SaveActivity(ctx context.Context) error {
 	}
 
 	return a.repository.SaveActivity(ctx, domain.NetworkActivity{
+		ID:     primitive.NewObjectID(),
 		Date:   time.Now(),
 		IVAO:   *ivao,
 		VATSIM: *vatsim,
@@ -156,6 +158,7 @@ func (a *AppService) SaveBrazilActivity(ctx context.Context) error {
 	}
 
 	return a.repository.SaveBrazilActivity(ctx, domain.NetworkActivity{
+		ID:     primitive.NewObjectID(),
 		Date:   time.Now(),
 		IVAO:   *ivao,
 		VATSIM: *vatsim,
@@ -225,6 +228,7 @@ func (a *AppService) SaveGeoActivity(ctx context.Context) error {
 	}
 
 	return a.repository.SaveGeoActivity(ctx, domain.GeoNetworkActivity{
+		ID:     primitive.NewObjectID(),
 		Date:   time.Now(),
 		IVAO:   *ivao,
 		VATSIM: *vatsim,

@@ -1,6 +1,7 @@
 package domain
 
 import (
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"time"
 )
 
@@ -12,17 +13,17 @@ type Activity struct {
 type GeoActivity map[string]Activity
 
 type NetworkActivity struct {
-	//ID     primitive.ObjectID `bson:"_id" json:"id,omitempty"`
-	Date   time.Time `json:"date"`
-	IVAO   Activity  `json:"ivao"`
-	VATSIM Activity  `json:"vatsim"`
-	POSCON Activity  `json:"poscon"`
+	ID     primitive.ObjectID `bson:"_id" json:"id,omitempty"`
+	Date   time.Time          `json:"date"`
+	IVAO   Activity           `json:"ivao"`
+	VATSIM Activity           `json:"vatsim"`
+	POSCON Activity           `json:"poscon"`
 }
 
 type GeoNetworkActivity struct {
-	//ID     primitive.ObjectID `bson:"_id" json:"id,omitempty"`
-	Date   time.Time   `json:"date"`
-	IVAO   GeoActivity `json:"ivao"`
-	VATSIM GeoActivity `json:"vatsim"`
-	POSCON GeoActivity `json:"poscon"`
+	ID     primitive.ObjectID `bson:"_id" json:"id,omitempty"`
+	Date   time.Time          `json:"date"`
+	IVAO   GeoActivity        `json:"ivao"`
+	VATSIM GeoActivity        `json:"vatsim"`
+	POSCON GeoActivity        `json:"poscon"`
 }
