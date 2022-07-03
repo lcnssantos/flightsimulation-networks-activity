@@ -1,6 +1,8 @@
 package domain
 
-import "time"
+import (
+	"time"
+)
 
 type Activity struct {
 	Pilot int64 `json:"pilot"`
@@ -10,7 +12,7 @@ type Activity struct {
 type GeoActivity map[string]Activity
 
 type NetworkActivity struct {
-	//ID     string    `json:"_id"`
+	//ID     primitive.ObjectID `bson:"_id" json:"id,omitempty"`
 	Date   time.Time `json:"date"`
 	IVAO   Activity  `json:"ivao"`
 	VATSIM Activity  `json:"vatsim"`
@@ -18,7 +20,7 @@ type NetworkActivity struct {
 }
 
 type GeoNetworkActivity struct {
-	//ID     string      `json:"_id"`
+	//ID     primitive.ObjectID `bson:"_id" json:"id,omitempty"`
 	Date   time.Time   `json:"date"`
 	IVAO   GeoActivity `json:"ivao"`
 	VATSIM GeoActivity `json:"vatsim"`

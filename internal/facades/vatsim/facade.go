@@ -2,6 +2,7 @@ package vatsim
 
 import (
 	"context"
+	"github.com/rs/zerolog/log"
 
 	"github.com/lcnssantos/online-activity/internal/app"
 	"github.com/lcnssantos/online-activity/internal/domain"
@@ -24,9 +25,12 @@ func NewVatsim(httpCLient httpclient.HttpClient, firService app.FirService) *VAT
 func (v *VATSIM) loadData(ctx context.Context) (*vatsimData, error) {
 	var transceiverData []vatsimTransceiverData
 
+	log.Debug().Msg("Loading VATSIM Data")
+
 	err := v.httpClient.Get(ctx, transceiverHost, &transceiverData)
 
 	if err != nil {
+		log.Error().Err(err).Msg("Loading VATSIM Data")
 		return nil, err
 	}
 
@@ -52,9 +56,12 @@ func (v *VATSIM) loadData(ctx context.Context) (*vatsimData, error) {
 }
 
 func (v *VATSIM) GetActivity(ctx context.Context) (*domain.Activity, error) {
+	log.Debug().Msg("Get VATSIM Activity")
+
 	data, err := v.loadData(ctx)
 
 	if err != nil {
+		log.Error().Err(err).Msg("Get VATSIM Activity")
 		return nil, err
 	}
 
@@ -65,9 +72,12 @@ func (v *VATSIM) GetActivity(ctx context.Context) (*domain.Activity, error) {
 }
 
 func (v *VATSIM) GetBrazilActivity(ctx context.Context) (*domain.Activity, error) {
+	log.Debug().Msg("Get VATSIM Brazil Activity")
+
 	data, err := v.loadData(ctx)
 
 	if err != nil {
+		log.Error().Err(err).Msg("Get VATSIM Brazil Activity")
 		return nil, err
 	}
 
@@ -109,9 +119,12 @@ func (v *VATSIM) GetBrazilActivity(ctx context.Context) (*domain.Activity, error
 }
 
 func (v *VATSIM) GetGeoActivity(ctx context.Context) (*domain.GeoActivity, error) {
+	log.Debug().Msg("Get VATSIM Geo Activity")
+
 	data, err := v.loadData(ctx)
 
 	if err != nil {
+		log.Error().Err(err).Msg("Get VATSIM Geo Activity")
 		return nil, err
 	}
 

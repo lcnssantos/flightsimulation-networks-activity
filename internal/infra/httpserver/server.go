@@ -21,5 +21,9 @@ func (s *Server) Listen() {
 
 	s.startRouter()
 
-	s.gin.Run(fmt.Sprintf(":%d", s.port))
+	err := s.gin.Run(fmt.Sprintf(":%d", s.port))
+
+	if err != nil {
+
+	}
 }

@@ -6,3 +6,11 @@ services:
     image: mongo
     ports:
       - 27017:27017
+  go:
+    container_name: api
+    build:
+      context: .
+    ports:
+      - 8080:8080
+    env_file:
+      - .env

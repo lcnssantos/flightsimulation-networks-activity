@@ -2,6 +2,7 @@ package poscon
 
 import (
 	"context"
+	"github.com/rs/zerolog/log"
 
 	"github.com/lcnssantos/online-activity/internal/app"
 	"github.com/lcnssantos/online-activity/internal/domain"
@@ -22,9 +23,12 @@ func NewPoscon(httpCLient httpclient.HttpClient, firService app.FirService) *Pos
 func (p *Poscon) loadData(ctx context.Context) (*posconData, error) {
 	var posconData posconData
 
+	log.Debug().Msg("Loading POSCON Data")
+
 	err := p.httpClient.Get(ctx, whazzup, &posconData)
 
 	if err != nil {
+		log.Error().Err(err).Msg("Loading POSCON Data")
 		return nil, err
 	}
 
@@ -32,9 +36,12 @@ func (p *Poscon) loadData(ctx context.Context) (*posconData, error) {
 }
 
 func (p *Poscon) GetActivity(ctx context.Context) (*domain.Activity, error) {
+	log.Debug().Msg("Get POSCON Activity")
+
 	data, err := p.loadData(ctx)
 
 	if err != nil {
+		log.Error().Err(err).Msg("Get POSCON Activity")
 		return nil, err
 	}
 
@@ -45,9 +52,12 @@ func (p *Poscon) GetActivity(ctx context.Context) (*domain.Activity, error) {
 }
 
 func (p *Poscon) GetBrazilActivity(ctx context.Context) (*domain.Activity, error) {
+	log.Debug().Msg("Get POSCON Brazil Activity")
+
 	data, err := p.loadData(ctx)
 
 	if err != nil {
+		log.Error().Err(err).Msg("Get POSCON Brazil Activity")
 		return nil, err
 	}
 
@@ -92,9 +102,12 @@ func (p *Poscon) GetBrazilActivity(ctx context.Context) (*domain.Activity, error
 }
 
 func (p *Poscon) GetGeoActivity(ctx context.Context) (*domain.GeoActivity, error) {
+	log.Debug().Msg("Get POSCON Geo Activity")
+
 	data, err := p.loadData(ctx)
 
 	if err != nil {
+		log.Error().Err(err).Msg("Get POSCON Geo Activity")
 		return nil, err
 	}
 

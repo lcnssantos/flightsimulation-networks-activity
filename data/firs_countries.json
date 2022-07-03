@@ -1,0 +1,1226 @@
+[
+  {
+    "ICAO": "AGGG",
+    "Country": "Solomon Islands"
+  },
+  {
+    "ICAO": "ANAU",
+    "Country": "Nauru"
+  },
+  {
+    "ICAO": "AYPM",
+    "Country": "Papua New Guinea"
+  },
+  {
+    "ICAO": "BGGL",
+    "Country": "Greenland ( Denmark)"
+  },
+  {
+    "ICAO": "BIRD",
+    "Country": "Iceland"
+  },
+  {
+    "ICAO": "CZEG",
+    "Country": "Canada"
+  },
+  {
+    "ICAO": "CZQM",
+    "Country": "Canada"
+  },
+  {
+    "ICAO": "CZQX",
+    "Country": "Canada"
+  },
+  {
+    "ICAO": "CZUL",
+    "Country": "Canada"
+  },
+  {
+    "ICAO": "CZVR",
+    "Country": "Canada"
+  },
+  {
+    "ICAO": "CZWG",
+    "Country": "Canada"
+  },
+  {
+    "ICAO": "CZYZ",
+    "Country": "Canada"
+  },
+  {
+    "ICAO": "DAAA",
+    "Country": "Algeria"
+  },
+  {
+    "ICAO": "DGAC",
+    "Country": "Ghana"
+  },
+  {
+    "ICAO": "DIII",
+    "Country": "Ivory Coast"
+  },
+  {
+    "ICAO": "DNKK",
+    "Country": "Nigeria"
+  },
+  {
+    "ICAO": "DRRR",
+    "Country": "Niger"
+  },
+  {
+    "ICAO": "DTTC",
+    "Country": "Tunisia"
+  },
+  {
+    "ICAO": "EZZZ",
+    "Country": "Belgium"
+  },
+  {
+    "ICAO": "EBBU",
+    "Country": "Belgium/ Luxembourg"
+  },
+  {
+    "ICAO": "EDGG",
+    "Country": "Germany"
+  },
+  {
+    "ICAO": "EDMM",
+    "Country": "Germany"
+  },
+  {
+    "ICAO": "EDUU",
+    "Country": "Germany"
+  },
+  {
+    "ICAO": "EDVV",
+    "Country": "Germany"
+  },
+  {
+    "ICAO": "EDWW",
+    "Country": "Germany"
+  },
+  {
+    "ICAO": "EDYY",
+    "Country": "Belgium/ Germany/ Netherlands"
+  },
+  {
+    "ICAO": "EETT",
+    "Country": "Estonia"
+  },
+  {
+    "ICAO": "EFIN",
+    "Country": "Finland"
+  },
+  {
+    "ICAO": "EGGX",
+    "Country": "United Kingdom"
+  },
+  {
+    "ICAO": "EGPX",
+    "Country": "United Kingdom"
+  },
+  {
+    "ICAO": "EGQQ",
+    "Country": "United Kingdom"
+  },
+  {
+    "ICAO": "EGTT",
+    "Country": "United Kingdom"
+  },
+  {
+    "ICAO": "EHAA",
+    "Country": "Netherlands"
+  },
+  {
+    "ICAO": "EISN",
+    "Country": "Ireland"
+  },
+  {
+    "ICAO": "EKDK",
+    "Country": "Denmark"
+  },
+  {
+    "ICAO": "ENOB",
+    "Country": "Norway"
+  },
+  {
+    "ICAO": "ENOR",
+    "Country": "Norway"
+  },
+  {
+    "ICAO": "EPWW",
+    "Country": "Poland"
+  },
+  {
+    "ICAO": "ESAA",
+    "Country": "Sweden"
+  },
+  {
+    "ICAO": "ESMM",
+    "Country": "Sweden"
+  },
+  {
+    "ICAO": "ESOS",
+    "Country": "Sweden"
+  },
+  {
+    "ICAO": "EVRR",
+    "Country": "Latvia"
+  },
+  {
+    "ICAO": "EYVL",
+    "Country": "Lithuania"
+  },
+  {
+    "ICAO": "FABL",
+    "Country": "South Africa"
+  },
+  {
+    "ICAO": "FACA",
+    "Country": "South Africa"
+  },
+  {
+    "ICAO": "FACT",
+    "Country": "South Africa"
+  },
+  {
+    "ICAO": "FADN",
+    "Country": "South Africa"
+  },
+  {
+    "ICAO": "FAJO",
+    "Country": "South Africa"
+  },
+  {
+    "ICAO": "FAJX",
+    "Country": "South Africa"
+  },
+  {
+    "ICAO": "FAPX",
+    "Country": "South Africa"
+  },
+  {
+    "ICAO": "FBGR",
+    "Country": "Botswana"
+  },
+  {
+    "ICAO": "FCCC",
+    "Country": "Congo, Republic of the"
+  },
+  {
+    "ICAO": "FIMM",
+    "Country": "Mauritius"
+  },
+  {
+    "ICAO": "FKKK",
+    "Country": "Cameroon"
+  },
+  {
+    "ICAO": "FLFI",
+    "Country": "Zambia"
+  },
+  {
+    "ICAO": "FMCX",
+    "Country": "Comoros"
+  },
+  {
+    "ICAO": "FMMM",
+    "Country": "Madagascar"
+  },
+  {
+    "ICAO": "FNAN",
+    "Country": "Angola"
+  },
+  {
+    "ICAO": "FOOO",
+    "Country": "Gabon"
+  },
+  {
+    "ICAO": "FQBE",
+    "Country": "Mozambique"
+  },
+  {
+    "ICAO": "FSSS",
+    "Country": "Seychelles"
+  },
+  {
+    "ICAO": "FTTT",
+    "Country": "Chad"
+  },
+  {
+    "ICAO": "FVHF",
+    "Country": "Zimbabwe"
+  },
+  {
+    "ICAO": "FWLL",
+    "Country": "Malawi"
+  },
+  {
+    "ICAO": "FYWF",
+    "Country": "Namibia"
+  },
+  {
+    "ICAO": "FZZA",
+    "Country": "Congo, Democratic Republic of the"
+  },
+  {
+    "ICAO": "GCCC",
+    "Country": "Canary Islands ( Spain)"
+  },
+  {
+    "ICAO": "GLRB",
+    "Country": "Liberia"
+  },
+  {
+    "ICAO": "GMMM",
+    "Country": "Morocco"
+  },
+  {
+    "ICAO": "GOOO",
+    "Country": "Senegal"
+  },
+  {
+    "ICAO": "GVSC",
+    "Country": "Cape Verde"
+  },
+  {
+    "ICAO": "HAAA",
+    "Country": "Ethiopia"
+  },
+  {
+    "ICAO": "HBBA",
+    "Country": "Burundi"
+  },
+  {
+    "ICAO": "HCSM",
+    "Country": "Somalia"
+  },
+  {
+    "ICAO": "HECC",
+    "Country": "Egypt"
+  },
+  {
+    "ICAO": "HHAA",
+    "Country": "Egypt"
+  },
+  {
+    "ICAO": "HKNA",
+    "Country": "Kenya"
+  },
+  {
+    "ICAO": "HLLL",
+    "Country": "Libya"
+  },
+  {
+    "ICAO": "HRYR",
+    "Country": "Rwanda"
+  },
+  {
+    "ICAO": "HSSS",
+    "Country": "Sudan"
+  },
+  {
+    "ICAO": "HTDC",
+    "Country": "Tanzania"
+  },
+  {
+    "ICAO": "HUEC",
+    "Country": "Uganda"
+  },
+  {
+    "ICAO": "KZAB",
+    "Country": "United States"
+  },
+  {
+    "ICAO": "KZAK",
+    "Country": "United States"
+  },
+  {
+    "ICAO": "KZAU",
+    "Country": "United States"
+  },
+  {
+    "ICAO": "KZBW",
+    "Country": "United States"
+  },
+  {
+    "ICAO": "KZDC",
+    "Country": "United States"
+  },
+  {
+    "ICAO": "KZDV",
+    "Country": "United States"
+  },
+  {
+    "ICAO": "KZFW",
+    "Country": "United States"
+  },
+  {
+    "ICAO": "KZHU",
+    "Country": "United States"
+  },
+  {
+    "ICAO": "KZID",
+    "Country": "United States"
+  },
+  {
+    "ICAO": "KZJX",
+    "Country": "United States"
+  },
+  {
+    "ICAO": "KZKC",
+    "Country": "United States"
+  },
+  {
+    "ICAO": "KZLA",
+    "Country": "United States"
+  },
+  {
+    "ICAO": "KZLC",
+    "Country": "United States"
+  },
+  {
+    "ICAO": "KZMA",
+    "Country": "United States"
+  },
+  {
+    "ICAO": "KZME",
+    "Country": "United States"
+  },
+  {
+    "ICAO": "KZMP",
+    "Country": "United States"
+  },
+  {
+    "ICAO": "KZNY",
+    "Country": "United States"
+  },
+  {
+    "ICAO": "KZOA",
+    "Country": "United States"
+  },
+  {
+    "ICAO": "KZOB",
+    "Country": "United States"
+  },
+  {
+    "ICAO": "KZSE",
+    "Country": "United States"
+  },
+  {
+    "ICAO": "KZTL",
+    "Country": "United States"
+  },
+  {
+    "ICAO": "KZWY",
+    "Country": "United States"
+  },
+  {
+    "ICAO": "LAAA",
+    "Country": "Albania"
+  },
+  {
+    "ICAO": "LBSR",
+    "Country": "Bulgaria"
+  },
+  {
+    "ICAO": "LBWR",
+    "Country": "Bulgaria"
+  },
+  {
+    "ICAO": "LCCC",
+    "Country": "Cyprus"
+  },
+  {
+    "ICAO": "LDZO",
+    "Country": "Croatia"
+  },
+  {
+    "ICAO": "LECB",
+    "Country": "Spain"
+  },
+  {
+    "ICAO": "LECM",
+    "Country": "Spain"
+  },
+  {
+    "ICAO": "LECS",
+    "Country": "Spain"
+  },
+  {
+    "ICAO": "LFBB",
+    "Country": "France"
+  },
+  {
+    "ICAO": "LFEE",
+    "Country": "France"
+  },
+  {
+    "ICAO": "LFFF",
+    "Country": "France"
+  },
+  {
+    "ICAO": "LFMM",
+    "Country": "France"
+  },
+  {
+    "ICAO": "LFRR",
+    "Country": "France"
+  },
+  {
+    "ICAO": "LGGG",
+    "Country": "Greece"
+  },
+  {
+    "ICAO": "LHCC",
+    "Country": "Hungary"
+  },
+  {
+    "ICAO": "LIBB",
+    "Country": "Italy"
+  },
+  {
+    "ICAO": "LIMM",
+    "Country": "Italy"
+  },
+  {
+    "ICAO": "LIRR",
+    "Country": "Italy"
+  },
+  {
+    "ICAO": "LJLA",
+    "Country": "Slovenia"
+  },
+  {
+    "ICAO": "LKAA",
+    "Country": "Czech Republic"
+  },
+  {
+    "ICAO": "LLLL",
+    "Country": "Israel"
+  },
+  {
+    "ICAO": "LMMM",
+    "Country": "Malta"
+  },
+  {
+    "ICAO": "LOVV",
+    "Country": "Austria"
+  },
+  {
+    "ICAO": "LPPC",
+    "Country": "Portugal"
+  },
+  {
+    "ICAO": "LPPO",
+    "Country": "Azores ( Portugal)"
+  },
+  {
+    "ICAO": "LQSB",
+    "Country": "Bosnia and Herzegovina"
+  },
+  {
+    "ICAO": "LRBB",
+    "Country": "Romania"
+  },
+  {
+    "ICAO": "LSAG",
+    "Country": "Switzerland"
+  },
+  {
+    "ICAO": "LSAS",
+    "Country": "Switzerland"
+  },
+  {
+    "ICAO": "LSAZ",
+    "Country": "Switzerland"
+  },
+  {
+    "ICAO": "LTAA",
+    "Country": "Turkey"
+  },
+  {
+    "ICAO": "LTBB",
+    "Country": "Turkey"
+  },
+  {
+    "ICAO": "LUUU",
+    "Country": "Moldova"
+  },
+  {
+    "ICAO": "LWSS",
+    "Country": "North Macedonia"
+  },
+  {
+    "ICAO": "LYBA",
+    "Country": "Serbia"
+  },
+  {
+    "ICAO": "LZBB",
+    "Country": "Slovakia"
+  },
+  {
+    "ICAO": "MDCS",
+    "Country": "Dominican Republic"
+  },
+  {
+    "ICAO": "MHTG",
+    "Country": "Honduras"
+  },
+  {
+    "ICAO": "MKJK",
+    "Country": "Jamaica"
+  },
+  {
+    "ICAO": "MMFO",
+    "Country": "Mexico"
+  },
+  {
+    "ICAO": "MMFR",
+    "Country": "Mexico"
+  },
+  {
+    "ICAO": "MPZL",
+    "Country": "Panama"
+  },
+  {
+    "ICAO": "MTEG",
+    "Country": "Haiti"
+  },
+  {
+    "ICAO": "MUFH",
+    "Country": "Cuba"
+  },
+  {
+    "ICAO": "MYNA",
+    "Country": "Bahamas"
+  },
+  {
+    "ICAO": "NFFF",
+    "Country": "Fiji"
+  },
+  {
+    "ICAO": "NTTT",
+    "Country": "French Polynesia ( France)"
+  },
+  {
+    "ICAO": "NWWX",
+    "Country": "New Caledonia ( France)"
+  },
+  {
+    "ICAO": "NZZC",
+    "Country": "New Zealand"
+  },
+  {
+    "ICAO": "NZZO",
+    "Country": "New Zealand"
+  },
+  {
+    "ICAO": "OAKX",
+    "Country": "Afghanistan"
+  },
+  {
+    "ICAO": "OBBB",
+    "Country": "Bahrain"
+  },
+  {
+    "ICAO": "OEJD",
+    "Country": "Saudi Arabia"
+  },
+  {
+    "ICAO": "OIIX",
+    "Country": "Iran"
+  },
+  {
+    "ICAO": "OJAC",
+    "Country": "Jordan"
+  },
+  {
+    "ICAO": "OKAC",
+    "Country": "Kuwait"
+  },
+  {
+    "ICAO": "OLBB",
+    "Country": "Lebanon"
+  },
+  {
+    "ICAO": "OMAE",
+    "Country": "United Arab Emirates"
+  },
+  {
+    "ICAO": "OOMM",
+    "Country": "Oman"
+  },
+  {
+    "ICAO": "OPKR",
+    "Country": "Pakistan"
+  },
+  {
+    "ICAO": "OPLR",
+    "Country": "Pakistan"
+  },
+  {
+    "ICAO": "ORBB",
+    "Country": "Iraq"
+  },
+  {
+    "ICAO": "ORMM",
+    "Country": "Iraq"
+  },
+  {
+    "ICAO": "OSTT",
+    "Country": "Syria"
+  },
+  {
+    "ICAO": "OYSC",
+    "Country": "Yemen"
+  },
+  {
+    "ICAO": "PAZA",
+    "Country": "United States"
+  },
+  {
+    "ICAO": "PAZN",
+    "Country": "United States"
+  },
+  {
+    "ICAO": "PHZH",
+    "Country": "United States"
+  },
+  {
+    "ICAO": "RCAA",
+    "Country": "Taiwan"
+  },
+  {
+    "ICAO": "RJJJ",
+    "Country": "Japan"
+  },
+  {
+    "ICAO": "RKRR",
+    "Country": "South Korea"
+  },
+  {
+    "ICAO": "RPHI",
+    "Country": "Philippines"
+  },
+  {
+    "ICAO": "SACF",
+    "Country": "Argentina"
+  },
+  {
+    "ICAO": "SACU",
+    "Country": "Argentina"
+  },
+  {
+    "ICAO": "SAEF",
+    "Country": "Argentina"
+  },
+  {
+    "ICAO": "SAEU",
+    "Country": "Argentina"
+  },
+  {
+    "ICAO": "SAMF",
+    "Country": "Argentina"
+  },
+  {
+    "ICAO": "SAMV",
+    "Country": "Argentina"
+  },
+  {
+    "ICAO": "SARR",
+    "Country": "Argentina"
+  },
+  {
+    "ICAO": "SAVF",
+    "Country": "Argentina"
+  },
+  {
+    "ICAO": "SAVU",
+    "Country": "Argentina"
+  },
+  {
+    "ICAO": "SBAO",
+    "Country": "Brazil"
+  },
+  {
+    "ICAO": "SBAZ",
+    "Country": "Brazil"
+  },
+  {
+    "ICAO": "SBBS",
+    "Country": "Brazil"
+  },
+  {
+    "ICAO": "SBCW",
+    "Country": "Brazil"
+  },
+  {
+    "ICAO": "SBRE",
+    "Country": "Brazil"
+  },
+  {
+    "ICAO": "SCCZ",
+    "Country": "Chile"
+  },
+  {
+    "ICAO": "SCEZ",
+    "Country": "Chile"
+  },
+  {
+    "ICAO": "SCFZ",
+    "Country": "Chile"
+  },
+  {
+    "ICAO": "SCIZ",
+    "Country": "Easter Island ( Chile)"
+  },
+  {
+    "ICAO": "SCTZ",
+    "Country": "Chile"
+  },
+  {
+    "ICAO": "SEFG",
+    "Country": "Ecuador"
+  },
+  {
+    "ICAO": "SGFA",
+    "Country": "Paraguay"
+  },
+  {
+    "ICAO": "SKEC",
+    "Country": "Colombia"
+  },
+  {
+    "ICAO": "SKED",
+    "Country": "Colombia"
+  },
+  {
+    "ICAO": "SLLF",
+    "Country": "Bolivia"
+  },
+  {
+    "ICAO": "SMPM",
+    "Country": "Suriname"
+  },
+  {
+    "ICAO": "SOOO",
+    "Country": "French Guiana ( France)"
+  },
+  {
+    "ICAO": "SPIM",
+    "Country": "Peru"
+  },
+  {
+    "ICAO": "SUEO",
+    "Country": "Uruguay"
+  },
+  {
+    "ICAO": "SVZM",
+    "Country": "Venezuela"
+  },
+  {
+    "ICAO": "SYGC",
+    "Country": "Guyana"
+  },
+  {
+    "ICAO": "TJZS",
+    "Country": "Puerto Rico ( United States)"
+  },
+  {
+    "ICAO": "TNCF",
+    "Country": "Curaçao ( Netherlands)"
+  },
+  {
+    "ICAO": "TTZP",
+    "Country": "Trinidad and Tobago"
+  },
+  {
+    "ICAO": "UAAX",
+    "Country": "Kazakhstan"
+  },
+  {
+    "ICAO": "UACX",
+    "Country": "Kazakhstan"
+  },
+  {
+    "ICAO": "UAFX",
+    "Country": "Kyrgyzstan"
+  },
+  {
+    "ICAO": "UASS",
+    "Country": "Kazakhstan"
+  },
+  {
+    "ICAO": "UDDD",
+    "Country": "Armenia"
+  },
+  {
+    "ICAO": "UEMH",
+    "Country": "Russia"
+  },
+  {
+    "ICAO": "UENN",
+    "Country": "Russia"
+  },
+  {
+    "ICAO": "UESS",
+    "Country": "Russia"
+  },
+  {
+    "ICAO": "UESU",
+    "Country": "Russia"
+  },
+  {
+    "ICAO": "UEVV",
+    "Country": "Russia"
+  },
+  {
+    "ICAO": "UGEE",
+    "Country": "Russia"
+  },
+  {
+    "ICAO": "UGGG",
+    "Country": "Georgia"
+  },
+  {
+    "ICAO": "UHBI",
+    "Country": "Russia"
+  },
+  {
+    "ICAO": "UHHH",
+    "Country": "Russia"
+  },
+  {
+    "ICAO": "UHMI",
+    "Country": "Russia"
+  },
+  {
+    "ICAO": "UHMM",
+    "Country": "Russia"
+  },
+  {
+    "ICAO": "UHMP",
+    "Country": "Russia"
+  },
+  {
+    "ICAO": "UHNN",
+    "Country": "Russia"
+  },
+  {
+    "ICAO": "UHPT",
+    "Country": "Russia"
+  },
+  {
+    "ICAO": "UHPU",
+    "Country": "Russia"
+  },
+  {
+    "ICAO": "UHSH",
+    "Country": "Russia"
+  },
+  {
+    "ICAO": "UIKB",
+    "Country": "Russia"
+  },
+  {
+    "ICAO": "UIKK",
+    "Country": "Russia"
+  },
+  {
+    "ICAO": "UKBV, UKDV, UKFV, UKLV, UKOV",
+    "Country": "Ukraine"
+  },
+  {
+    "ICAO": "UKBV",
+    "Country": "Ukraine"
+  },
+  {
+    "ICAO": "UKDV",
+    "Country": "Ukraine"
+  },
+  {
+    "ICAO": "UKFV",
+    "Country": "Ukraine"
+  },
+  {
+    "ICAO": "UKLV",
+    "Country": "Ukraine"
+  },
+  {
+    "ICAO": "UKOV",
+    "Country": "Ukraine"
+  },
+  {
+    "ICAO": "ULLL",
+    "Country": "Russia"
+  },
+  {
+    "ICAO": "ULOL",
+    "Country": "Russia"
+  },
+  {
+    "ICAO": "UMKD",
+    "Country": "Russia"
+  },
+  {
+    "ICAO": "UMMV",
+    "Country": "Belarus"
+  },
+  {
+    "ICAO": "UNLL",
+    "Country": "Russia"
+  },
+  {
+    "ICAO": "UOTT",
+    "Country": "Russia"
+  },
+  {
+    "ICAO": "URRV",
+    "Country": "Russia"
+  },
+  {
+    "ICAO": "USDK",
+    "Country": "Russia"
+  },
+  {
+    "ICAO": "USHB",
+    "Country": "Russia"
+  },
+  {
+    "ICAO": "USHH",
+    "Country": "Russia"
+  },
+  {
+    "ICAO": "UTAK",
+    "Country": "Turkmenistan"
+  },
+  {
+    "ICAO": "UTNR",
+    "Country": "Uzbekistan"
+  },
+  {
+    "ICAO": "UTSD",
+    "Country": "Uzbekistan"
+  },
+  {
+    "ICAO": "UTTR",
+    "Country": "Uzbekistan"
+  },
+  {
+    "ICAO": "UUWV",
+    "Country": "Russia"
+  },
+  {
+    "ICAO": "UUYW",
+    "Country": "Russia"
+  },
+  {
+    "ICAO": "UUYY",
+    "Country": "Russia"
+  },
+  {
+    "ICAO": "UWOO",
+    "Country": "Russia"
+  },
+  {
+    "ICAO": "VABF",
+    "Country": "India"
+  },
+  {
+    "ICAO": "VCCF",
+    "Country": "Sri Lanka"
+  },
+  {
+    "ICAO": "VDPF",
+    "Country": "Cambodia"
+  },
+  {
+    "ICAO": "VECF",
+    "Country": "India"
+  },
+  {
+    "ICAO": "VGFR",
+    "Country": "Bangladesh"
+  },
+  {
+    "ICAO": "VHHK",
+    "Country": "Hong Kong"
+  },
+  {
+    "ICAO": "VIDF",
+    "Country": "India"
+  },
+  {
+    "ICAO": "VLIV",
+    "Country": "Laos"
+  },
+  {
+    "ICAO": "VLVT",
+    "Country": "Laos"
+  },
+  {
+    "ICAO": "VNSM",
+    "Country": "Nepal"
+  },
+  {
+    "ICAO": "VOMF",
+    "Country": "India"
+  },
+  {
+    "ICAO": "VRMF",
+    "Country": "Maldives"
+  },
+  {
+    "ICAO": "VTBB",
+    "Country": "Thailand"
+  },
+  {
+    "ICAO": "VVHM",
+    "Country": "Vietnam"
+  },
+  {
+    "ICAO": "VVHN",
+    "Country": "Vietnam"
+  },
+  {
+    "ICAO": "VYMD",
+    "Country": "Myanmar"
+  },
+  {
+    "ICAO": "VYYF",
+    "Country": "Myanmar"
+  },
+  {
+    "ICAO": "WAAF",
+    "Country": "Indonesia"
+  },
+  {
+    "ICAO": "WAAZ",
+    "Country": "Indonesia"
+  },
+  {
+    "ICAO": "WABZ",
+    "Country": "Indonesia"
+  },
+  {
+    "ICAO": "WADZ",
+    "Country": "Indonesia"
+  },
+  {
+    "ICAO": "WAJZ",
+    "Country": "Indonesia"
+  },
+  {
+    "ICAO": "WAKZ",
+    "Country": "Indonesia"
+  },
+  {
+    "ICAO": "WALZ",
+    "Country": "Indonesia"
+  },
+  {
+    "ICAO": "WAMZ",
+    "Country": "Indonesia"
+  },
+  {
+    "ICAO": "WAOZ",
+    "Country": "Indonesia"
+  },
+  {
+    "ICAO": "WAPZ",
+    "Country": "Indonesia"
+  },
+  {
+    "ICAO": "WATZ",
+    "Country": "Indonesia"
+  },
+  {
+    "ICAO": "WBFC",
+    "Country": "Brunei/ Malaysia"
+  },
+  {
+    "ICAO": "WIIF",
+    "Country": "Indonesia"
+  },
+  {
+    "ICAO": "WIIZ",
+    "Country": "Indonesia"
+  },
+  {
+    "ICAO": "WIMZ",
+    "Country": "Indonesia"
+  },
+  {
+    "ICAO": "WIOZ",
+    "Country": "Indonesia"
+  },
+  {
+    "ICAO": "WIPZ",
+    "Country": "Indonesia"
+  },
+  {
+    "ICAO": "WMFC",
+    "Country": "Malaysia"
+  },
+  {
+    "ICAO": "WSJC",
+    "Country": "Singapore"
+  },
+  {
+    "ICAO": "YBBB",
+    "Country": "Australia"
+  },
+  {
+    "ICAO": "YMMM",
+    "Country": "Australia"
+  },
+  {
+    "ICAO": "ZBPE",
+    "Country": "China"
+  },
+  {
+    "ICAO": "ZGJD",
+    "Country": "China"
+  },
+  {
+    "ICAO": "ZGZU",
+    "Country": "China"
+  },
+  {
+    "ICAO": "ZHWH",
+    "Country": "China"
+  },
+  {
+    "ICAO": "ZJSA",
+    "Country": "China"
+  },
+  {
+    "ICAO": "ZKKP",
+    "Country": "North Korea"
+  },
+  {
+    "ICAO": "ZLHW",
+    "Country": "China"
+  },
+  {
+    "ICAO": "ZMUB",
+    "Country": "Mongolia"
+  },
+  {
+    "ICAO": "ZPKM",
+    "Country": "China"
+  },
+  {
+    "ICAO": "ZSHA",
+    "Country": "China"
+  },
+  {
+    "ICAO": "ZWUQ",
+    "Country": "China"
+  },
+  {
+    "ICAO": "ZYSH",
+    "Country": "China"
+  }
+]

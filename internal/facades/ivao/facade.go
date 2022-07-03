@@ -2,6 +2,7 @@ package ivao
 
 import (
 	"context"
+	"github.com/rs/zerolog/log"
 
 	"github.com/lcnssantos/online-activity/internal/app"
 	"github.com/lcnssantos/online-activity/internal/domain"
@@ -22,9 +23,12 @@ func NewIVAO(httpClient httpclient.HttpClient, firService app.FirService) *IVAO 
 func (i *IVAO) loadData(ctx context.Context) (*ivaoData, error) {
 	var ivaoData ivaoData
 
+	log.Debug().Msg("Loading IVAO Data")
+
 	err := i.httpClient.Get(ctx, whazzup, &ivaoData)
 
 	if err != nil {
+		log.Error().Err(err).Msg("Loading IVAO Data")
 		return nil, err
 	}
 
@@ -32,9 +36,12 @@ func (i *IVAO) loadData(ctx context.Context) (*ivaoData, error) {
 }
 
 func (i *IVAO) GetActivity(ctx context.Context) (*domain.Activity, error) {
+	log.Debug().Msg("Get IVAO Activity")
+
 	data, err := i.loadData(ctx)
 
 	if err != nil {
+		log.Error().Err(err).Msg("Get IVAO Activity")
 		return nil, err
 	}
 
@@ -45,9 +52,12 @@ func (i *IVAO) GetActivity(ctx context.Context) (*domain.Activity, error) {
 }
 
 func (i *IVAO) GetBrazilActivity(ctx context.Context) (*domain.Activity, error) {
+	log.Debug().Msg("Get IVAO Brazil Activity")
+
 	data, err := i.loadData(ctx)
 
 	if err != nil {
+		log.Error().Err(err).Msg("Get IVAO Brazil Activity")
 		return nil, err
 	}
 
@@ -106,9 +116,12 @@ func (i *IVAO) GetBrazilActivity(ctx context.Context) (*domain.Activity, error) 
 }
 
 func (i *IVAO) GetGeoActivity(ctx context.Context) (*domain.GeoActivity, error) {
+	log.Debug().Msg("Get IVAO Geo Activity")
+
 	data, err := i.loadData(ctx)
 
 	if err != nil {
+		log.Error().Err(err).Msg("Get IVAO Geo Activity")
 		return nil, err
 	}
 

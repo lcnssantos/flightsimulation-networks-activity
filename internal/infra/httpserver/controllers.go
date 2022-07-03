@@ -2,6 +2,7 @@ package httpserver
 
 import (
 	"github.com/lcnssantos/online-activity/internal/infra/concurrency"
+	"github.com/rs/zerolog/log"
 	"net/http"
 	"strconv"
 
@@ -158,6 +159,10 @@ func (t *Controller) saveCurrent(ctx *gin.Context) {
 	geoTask := asyncTasks[2]
 
 	if brTask.Err != nil || geoTask.Err != nil || stdTask.Err != nil {
-		ctx.JSON(http.StatusInternalServerError, nil)
+		ctx.Status(http.StatusCreated)
+	} else {
+		log.Err(brTask.Err).Msg("BR_TASK")
+		log.Err(stdTask.Err).Msg("STD_TASK")
+		log.Err(geoTask.Err).Msg("GEO_TASK")
 	}
 }

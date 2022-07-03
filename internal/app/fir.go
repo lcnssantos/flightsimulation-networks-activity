@@ -2,9 +2,13 @@ package app
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
+	"fmt"
 	"github.com/lcnssantos/online-activity/internal/domain"
 	"github.com/lcnssantos/online-activity/internal/infra/httpclient"
+	"github.com/rs/zerolog/log"
+	"os"
 	"strings"
 )
 
@@ -43,6 +47,11 @@ type FirService struct {
 	firsCountry  map[string]*string
 }
 
+type FirCountry struct {
+	ICAO    string `json:"ICAO"`
+	Country string `json:"Country"`
+}
+
 func NewFirService(geoService GeoService, httpClient httpclient.HttpClient) FirService {
 	return FirService{
 		geoService:  geoService,
@@ -53,8 +62,43 @@ func NewFirService(geoService GeoService, httpClient httpclient.HttpClient) FirS
 	}
 }
 
+func (f *FirService) loadFirCountryData() error {
+	log.Info().Msg("Start FIR country loading...")
+
+	path, err := os.Getwd()
+
+	if err != nil {
+		return err
+	}
+
+	file := fmt.Sprintf("%s/data/firs_countries.json", path)
+
+	data, err := os.ReadFile(file)
+
+	if err != nil {
+		return err
+	}
+
+	countries := make([]FirCountry, 0)
+
+	err = json.Unmarshal(data, &countries)
+
+	if err != nil {
+		return err
+	}
+
+	for _, country := range countries {
+		countryName := country.Country
+		f.firsCountry[country.ICAO] = &countryName
+	}
+
+	return nil
+}
+
 func (f *FirService) LoadFirData(ctx context.Context) error {
 	if f.responseData == nil {
+		log.Info().Msg("Starting FIR data loading...")
+
 		var responseData GeoFIR
 
 		err := f.httpClient.Get(ctx, f.endpoint, &responseData)
@@ -80,14 +124,21 @@ func (f *FirService) LoadFirData(ctx context.Context) error {
 			f.firsMap[fir.ICAO] = &fir
 		}
 
-		//TODO - escrever codigo que le os paises
+		err = f.loadFirCountryData()
+
+		if err != nil {
+			return err
+		}
 	}
 
 	return nil
 }
 
 func (f *FirService) DetectFIR(point domain.Point) (string, error) {
+	log.Debug().Interface("point", point).Msg("Detect FIR from point")
+
 	if f.firsMap == nil {
+		log.Error().Msg("FIRs not loaded")
 		return "", errors.New("FIRS NOT LOADED")
 	}
 
@@ -97,13 +148,18 @@ func (f *FirService) DetectFIR(point domain.Point) (string, error) {
 		}
 	}
 
+	log.Warn().Interface("point", point).Msg("FIR not founded")
+
 	return "", errors.New("FIR NOT FOUNDED")
 }
 
 func (f *FirService) DetectCountryByFIRCode(fir string) string {
+	log.Debug().Interface("fir", fir).Msg("Get country by fir code")
+
 	country := f.firsCountry[fir]
 
 	if country == nil {
+		log.Warn().Interface("fir", fir).Msg("Country not founded")
 		return "UNKNOWN"
 	}
 
@@ -111,7 +167,10 @@ func (f *FirService) DetectCountryByFIRCode(fir string) string {
 }
 
 func (f *FirService) DetectCountryByPoint(point domain.Point) (string, error) {
+	log.Debug().Interface("point", point).Msg("Get country by point")
+
 	if f.firsMap == nil {
+		log.Error().Msg("FIRs not loaded")
 		return "", errors.New("FIRS NOT LOADED")
 	}
 
@@ -121,15 +180,19 @@ func (f *FirService) DetectCountryByPoint(point domain.Point) (string, error) {
 		}
 	}
 
+	log.Warn().Interface("point", point).Msg("Fir not founded")
+
 	return "", errors.New("FIR NOT FOUNDED")
 }
 
 func (f *FirService) IsInsideFIR(point domain.Point, fir string) (bool, error) {
 	if f.firsMap == nil {
+		log.Error().Interface("point", point).Interface("fir", fir).Msg("FIRs not loaded")
 		return false, errors.New("FIRS NOT LOADED")
 	}
 
 	if f.firsMap[fir] == nil {
+		log.Error().Interface("point", point).Interface("fir", fir).Msg("FIR Not founded")
 		return false, errors.New("FIR NOT FOUNDED")
 	}
 
