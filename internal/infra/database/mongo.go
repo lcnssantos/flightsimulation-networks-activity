@@ -22,7 +22,7 @@ func (d MongoDriver) GetClient() (*mongo.Client, error) {
 
 	defer cancel()
 
-	client, err := mongo.Connect(ctx, options.Client().ApplyURI(d.connectionString).SetMaxConnecting(10).SetMaxPoolSize(10))
+	client, err := mongo.Connect(ctx, options.Client().ApplyURI(d.connectionString).SetMaxConnecting(3).SetMaxPoolSize(3))
 
 	if err != nil {
 		return nil, err
