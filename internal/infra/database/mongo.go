@@ -19,7 +19,7 @@ func NewMongoDriver(connectionString string, dbName string) MongoDriver {
 	return MongoDriver{connectionString: connectionString, dbName: dbName}
 }
 
-func (d MongoDriver) GetClient() (*mongo.Client, error) {
+func (d *MongoDriver) GetClient() (*mongo.Client, error) {
 	if d.client != nil {
 		log.Info().Msg("MongoDB client already exists")
 		return d.client, nil
@@ -50,7 +50,7 @@ func (d MongoDriver) GetClient() (*mongo.Client, error) {
 	return client, nil
 }
 
-func (d MongoDriver) GetDatabase() (*mongo.Database, error) {
+func (d *MongoDriver) GetDatabase() (*mongo.Database, error) {
 	client, err := d.GetClient()
 
 	if err != nil {
