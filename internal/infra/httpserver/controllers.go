@@ -159,11 +159,15 @@ func (t *Controller) saveCurrent(ctx *gin.Context) {
 	brTask := asyncTasks[1]
 	geoTask := asyncTasks[2]
 
-	if brTask.Err != nil || geoTask.Err != nil || stdTask.Err != nil {
-		ctx.Status(http.StatusCreated)
-	} else {
+	if brTask.Err != nil {
 		log.Error().Err(brTask.Err).Msg("BR_TASK")
-		log.Error().Err(stdTask.Err).Msg("STD_TASK")
+	}
+
+	if geoTask.Err != nil {
 		log.Error().Err(geoTask.Err).Msg("GEO_TASK")
+	}
+
+	if stdTask.Err != nil {
+		log.Error().Err(stdTask.Err).Msg("STD_TASK")
 	}
 }
