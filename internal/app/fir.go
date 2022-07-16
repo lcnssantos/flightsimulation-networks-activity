@@ -5,11 +5,12 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"os"
+	"strings"
+
 	"github.com/lcnssantos/online-activity/internal/domain"
 	"github.com/lcnssantos/online-activity/internal/infra/httpclient"
 	"github.com/rs/zerolog/log"
-	"os"
-	"strings"
 )
 
 type GeoFeatureProperty struct {
@@ -148,7 +149,7 @@ func (f *FirService) DetectFIR(point domain.Point) (string, error) {
 		}
 	}
 
-	log.Warn().Interface("point", point).Msg("FIR not founded")
+	log.Debug().Interface("point", point).Msg("FIR not founded")
 
 	return "", errors.New("FIR NOT FOUNDED")
 }
@@ -159,7 +160,7 @@ func (f *FirService) DetectCountryByFIRCode(fir string) string {
 	country := f.firsCountry[fir]
 
 	if country == nil {
-		log.Warn().Interface("fir", fir).Msg("Country not founded")
+		log.Debug().Interface("fir", fir).Msg("Country not founded")
 		return "UNKNOWN"
 	}
 
@@ -180,7 +181,7 @@ func (f *FirService) DetectCountryByPoint(point domain.Point) (string, error) {
 		}
 	}
 
-	log.Warn().Interface("point", point).Msg("Fir not founded")
+	log.Debug().Interface("point", point).Msg("Fir not founded")
 
 	return "", errors.New("FIR NOT FOUNDED")
 }
