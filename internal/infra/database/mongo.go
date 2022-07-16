@@ -35,10 +35,10 @@ func (d MongoDriver) GetClient() (*mongo.Client, error) {
 		Connect(ctx, options.
 			Client().
 			ApplyURI(d.connectionString).
-			SetMaxConnecting(3).
-			SetMaxPoolSize(3).
+			SetMaxConnecting(30).
+			SetMaxPoolSize(30).
 			SetMaxConnIdleTime(10*time.Second).
-			SetMaxConnecting(3),
+			SetMaxConnecting(30),
 		)
 
 	if err != nil {
