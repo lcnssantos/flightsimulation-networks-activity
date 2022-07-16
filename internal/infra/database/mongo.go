@@ -11,6 +11,7 @@ import (
 type MongoDriver struct {
 	connectionString string
 	dbName           string
+	client           *mongo.Client
 }
 
 func NewMongoDriver(connectionString string, dbName string) MongoDriver {
@@ -18,6 +19,10 @@ func NewMongoDriver(connectionString string, dbName string) MongoDriver {
 }
 
 func (d MongoDriver) GetClient() (*mongo.Client, error) {
+	if d.client != nil {
+		return d.client, nil
+	}
+
 	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(20)*time.Second)
 
 	defer cancel()
@@ -36,11 +41,14 @@ func (d MongoDriver) GetClient() (*mongo.Client, error) {
 		return nil, err
 	}
 
+	d.client = client
+
 	return client, nil
 }
 
 func (d MongoDriver) GetDatabase() (*mongo.Database, error) {
 	client, err := d.GetClient()
+
 	if err != nil {
 		return nil, err
 	}
