@@ -27,7 +27,9 @@ func (d MongoDriver) GetClient() (*mongo.Client, error) {
 			Client().
 			ApplyURI(d.connectionString).
 			SetMaxConnecting(3).
-			SetMaxPoolSize(3),
+			SetMaxPoolSize(3).
+			SetMaxConnIdleTime(10*time.Second).
+			SetMaxConnecting(3),
 		)
 
 	if err != nil {
