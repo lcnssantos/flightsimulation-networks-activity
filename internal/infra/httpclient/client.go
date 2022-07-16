@@ -40,7 +40,10 @@ func (h *HttpClient) Get(ctx context.Context, url string, output interface{}) er
 
 	log.Debug().
 		Str("url", url).
-		Dur("http_duration", difference).Msg("HTTP Request")
+		Str("method", http.MethodGet).
+		Dur("duration", difference).
+		Int("status", res.StatusCode).
+		Msgf("HTTP Request | %s", url)
 
 	defer res.Body.Close()
 
