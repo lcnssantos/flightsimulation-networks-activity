@@ -33,7 +33,11 @@ func ExecuteConcurrentTasks(tasks ...TaskInput) TaskResultMap {
 			startTime := time.Now()
 			result, err := task.Task()
 
-			log.Debug().Str("tag", task.Tag).Dur("duration", time.Since(startTime)).Msg("task completed")
+			log.
+				Debug().
+				Str("tag", task.Tag).
+				Dur("duration", time.Since(startTime)).
+				Msgf("task completed %s", task.Tag)
 
 			if err != nil {
 				log.Error().Err(err).Str("tag", task.Tag).Msg("task failed")
