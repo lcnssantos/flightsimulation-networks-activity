@@ -9,13 +9,24 @@ import (
 var Environment Env
 
 type Env struct {
-	MongoURL string `validate:"required"`
-	mongoSSL string `validate:"required"`
-	port     string `validate:"required"`
+	MongoURL  string `validate:"required"`
+	mongoSSL  string `validate:"required"`
+	port      string `validate:"required"`
+	cacheTime string `validate:"required"`
 }
 
 func (e *Env) GetMongoSSL() bool {
 	return e.mongoSSL == "true"
+}
+
+func (e *Env) GetCacheTime() int {
+	cacheTime, err := strconv.Atoi(e.cacheTime)
+
+	if err != nil {
+		return 0
+	}
+
+	return cacheTime
 }
 
 func (e *Env) GetPort() int {
@@ -38,8 +49,9 @@ func (e *Env) Validate() error {
 
 func LoadEnv() {
 	Environment = Env{
-		MongoURL: os.Getenv("MONGO_URL"),
-		mongoSSL: os.Getenv("MONGO_SSL"),
-		port:     os.Getenv("PORT"),
+		MongoURL:  os.Getenv("MONGO_URL"),
+		mongoSSL:  os.Getenv("MONGO_SSL"),
+		port:      os.Getenv("PORT"),
+		cacheTime: os.Getenv("CACHE_TIME"),
 	}
 }

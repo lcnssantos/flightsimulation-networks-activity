@@ -1,0 +1,20 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Online Activity",
+      "type": "go",
+      "request": "launch",
+      "mode": "debug",
+      "program": "${workspaceFolder}/cmd/main.go",
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "MONGO_URL": "mongodb://localhost:27017",
+        "MONGO_SSL": "true",
+        "GIN_MODE": "debug",
+        "PORT": "8080",
+        "CACHE_TIME": "1"
+      }
+    }
+  ]
+}

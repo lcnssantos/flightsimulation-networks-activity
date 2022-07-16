@@ -2,9 +2,13 @@ package vatsim
 
 import (
 	"context"
+	"sync"
+	"time"
+
 	"github.com/rs/zerolog/log"
 
 	"github.com/lcnssantos/online-activity/internal/app"
+	"github.com/lcnssantos/online-activity/internal/configuration"
 	"github.com/lcnssantos/online-activity/internal/domain"
 	"github.com/lcnssantos/online-activity/internal/infra/httpclient"
 )
@@ -12,10 +16,17 @@ import (
 const whazzup = "https://data.vatsim.net/v3/vatsim-data.json"
 const transceiverHost = "https://data.vatsim.net/v3/transceivers-data.json"
 
+type cache struct {
+	data       *vatsimData
+	expiration time.Time
+}
+
 type VATSIM struct {
+	sync.Mutex
 	httpClient      httpclient.HttpClient
 	firService      app.FirService
 	transceiverData map[string]*domain.Point
+	data            *cache
 }
 
 func NewVatsim(httpCLient httpclient.HttpClient, firService app.FirService) *VATSIM {
@@ -23,6 +34,13 @@ func NewVatsim(httpCLient httpclient.HttpClient, firService app.FirService) *VAT
 }
 
 func (v *VATSIM) loadData(ctx context.Context) (*vatsimData, error) {
+	v.Lock()
+	defer v.Unlock()
+
+	if v.data != nil && time.Now().Before(v.data.expiration) {
+		return v.data.data, nil
+	}
+
 	var transceiverData []vatsimTransceiverData
 
 	log.Debug().Msg("Loading VATSIM Data")
@@ -50,6 +68,11 @@ func (v *VATSIM) loadData(ctx context.Context) (*vatsimData, error) {
 
 	if err != nil {
 		return nil, err
+	}
+
+	v.data = &cache{
+		data:       &data,
+		expiration: time.Now().Add(time.Minute * time.Duration(configuration.Environment.GetCacheTime())),
 	}
 
 	return &data, nil
@@ -128,42 +151,57 @@ func (v *VATSIM) GetGeoActivity(ctx context.Context) (*domain.GeoActivity, error
 		return nil, err
 	}
 
+	wg := sync.WaitGroup{}
+	wg.Add(len(data.Pilots) + len(data.Atc))
+
 	count := newCount()
 
 	for _, pilot := range data.Pilots {
-		if pilot.Latitude == nil || pilot.Longitude == nil {
-			count.increment("UNKNOWN", "pilot")
-			break
-		}
+		go func(pilot vatsimPilot) {
+			defer wg.Done()
 
-		country, err := v.firService.DetectCountryByPoint(domain.Point{
-			Lat: *pilot.Latitude,
-			Lon: *pilot.Longitude,
-		})
+			if pilot.Latitude == nil || pilot.Longitude == nil {
+				count.increment("UNKNOWN", "pilot")
+				return
+			}
 
-		if err != nil {
-			count.increment("UNKNOWN", "pilot")
-		} else {
+			country, err := v.firService.DetectCountryByPoint(domain.Point{
+				Lat: *pilot.Latitude,
+				Lon: *pilot.Longitude,
+			})
+
+			if err != nil {
+				count.increment("UNKNOWN", "pilot")
+				return
+			}
 			count.increment(country, "pilot")
-		}
+		}(pilot)
 	}
 
 	for _, atc := range data.Atc {
-		point := v.transceiverData[atc.Callsign]
+		go func(atc vatsimATC) {
+			defer wg.Done()
 
-		if point == nil {
-			count.increment("UNKNOWN", "atc")
-			break
-		}
+			point := v.transceiverData[atc.Callsign]
 
-		country, err := v.firService.DetectCountryByPoint(*point)
+			if point == nil {
+				count.increment("UNKNOWN", "atc")
+				return
+			}
 
-		if err != nil {
-			count.increment("UNKNOWN", "atc")
-		} else {
+			country, err := v.firService.DetectCountryByPoint(*point)
+
+			if err != nil {
+				count.increment("UNKNOWN", "atc")
+				return
+			}
+
 			count.increment(country, "atc")
-		}
+
+		}(atc)
 	}
+
+	wg.Wait()
 
 	countData := count.get()
 

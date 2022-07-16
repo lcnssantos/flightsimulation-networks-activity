@@ -7,6 +7,8 @@ import (
 	"fmt"
 	"net/http"
 	"time"
+
+	"github.com/rs/zerolog/log"
 )
 
 type HttpClient struct {
@@ -26,11 +28,19 @@ func (h *HttpClient) Get(ctx context.Context, url string, output interface{}) er
 		return err
 	}
 
+	startTime := time.Now()
+
 	res, err := h.httpClient.Do(req)
 
 	if err != nil {
 		return err
 	}
+
+	difference := time.Since(startTime)
+
+	log.Debug().
+		Str("url", url).
+		Dur("http_duration", difference).Msg("HTTP Request")
 
 	defer res.Body.Close()
 

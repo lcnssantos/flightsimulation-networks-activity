@@ -2,9 +2,10 @@ package app
 
 import (
 	"context"
+	"time"
+
 	"github.com/lcnssantos/online-activity/internal/infra/concurrency"
 	"go.mongodb.org/mongo-driver/bson/primitive"
-	"time"
 
 	"github.com/lcnssantos/online-activity/internal/domain"
 )
@@ -32,12 +33,21 @@ func NewAppService(
 
 func (a *AppService) loadActivity(ctx context.Context) (ivao *domain.Activity, vatsim *domain.Activity, poscon *domain.Activity, err error) {
 	asyncTasks := concurrency.ExecuteConcurrentTasks(
-		func() (interface{}, error) {
-			return a.ivaoFacade.GetActivity(ctx)
-		}, func() (interface{}, error) {
-			return a.posconFacade.GetActivity(ctx)
-		}, func() (interface{}, error) {
-			return a.vatsimFacade.GetActivity(ctx)
+		concurrency.TaskInput{
+			Task: func() (interface{}, error) {
+				return a.ivaoFacade.GetActivity(ctx)
+			},
+			Tag: "ivao-activity",
+		}, concurrency.TaskInput{
+			Task: func() (interface{}, error) {
+				return a.posconFacade.GetActivity(ctx)
+			},
+			Tag: "poscon-activity",
+		}, concurrency.TaskInput{
+			Task: func() (interface{}, error) {
+				return a.vatsimFacade.GetActivity(ctx)
+			},
+			Tag: "vatsim-activity",
 		})
 
 	ivaoTask := asyncTasks[0]
@@ -102,12 +112,18 @@ func (a *AppService) GetHistoryByMinutes(ctx context.Context, minutes int64) ([]
 
 func (a *AppService) loadBrazilActivity(ctx context.Context) (ivao *domain.Activity, vatsim *domain.Activity, poscon *domain.Activity, err error) {
 	asyncTasks := concurrency.ExecuteConcurrentTasks(
-		func() (interface{}, error) {
-			return a.ivaoFacade.GetBrazilActivity(ctx)
-		}, func() (interface{}, error) {
+		concurrency.TaskInput{
+			Task: func() (interface{}, error) {
+				return a.ivaoFacade.GetBrazilActivity(ctx)
+			},
+			Tag: "ivao-brazil-activity",
+		}, concurrency.TaskInput{Task: func() (interface{}, error) {
 			return a.posconFacade.GetBrazilActivity(ctx)
-		}, func() (interface{}, error) {
-			return a.vatsimFacade.GetBrazilActivity(ctx)
+		}, Tag: "poscon-brazil-activity"}, concurrency.TaskInput{
+			Task: func() (interface{}, error) {
+				return a.vatsimFacade.GetBrazilActivity(ctx)
+			},
+			Tag: "vatsim-brazil-activity",
 		})
 
 	ivaoTask := asyncTasks[0]
@@ -172,12 +188,21 @@ func (a *AppService) GetBrazilHistoryByMinutes(ctx context.Context, minutes int6
 
 func (a *AppService) loadGeoActivity(ctx context.Context) (ivao *domain.GeoActivity, vatsim *domain.GeoActivity, poscon *domain.GeoActivity, err error) {
 	asyncTasks := concurrency.ExecuteConcurrentTasks(
-		func() (interface{}, error) {
-			return a.ivaoFacade.GetGeoActivity(ctx)
-		}, func() (interface{}, error) {
-			return a.posconFacade.GetGeoActivity(ctx)
-		}, func() (interface{}, error) {
-			return a.vatsimFacade.GetGeoActivity(ctx)
+		concurrency.TaskInput{
+			Task: func() (interface{}, error) {
+				return a.ivaoFacade.GetGeoActivity(ctx)
+			},
+			Tag: "ivao-geo-activity",
+		}, concurrency.TaskInput{
+			Task: func() (interface{}, error) {
+				return a.posconFacade.GetGeoActivity(ctx)
+			},
+			Tag: "poscon-geo-activity",
+		}, concurrency.TaskInput{
+			Task: func() (interface{}, error) {
+				return a.vatsimFacade.GetGeoActivity(ctx)
+			},
+			Tag: "vatsim-geo-activity",
 		})
 
 	ivaoTask := asyncTasks[0]

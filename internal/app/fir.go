@@ -136,7 +136,7 @@ func (f *FirService) LoadFirData(ctx context.Context) error {
 }
 
 func (f *FirService) DetectFIR(point domain.Point) (string, error) {
-	log.Debug().Interface("point", point).Msg("Detect FIR from point")
+	log.Trace().Interface("point", point).Msg("Detect FIR from point")
 
 	if f.firsMap == nil {
 		log.Error().Msg("FIRs not loaded")
@@ -149,18 +149,18 @@ func (f *FirService) DetectFIR(point domain.Point) (string, error) {
 		}
 	}
 
-	log.Debug().Interface("point", point).Msg("FIR not founded")
+	log.Trace().Interface("point", point).Msg("FIR not founded")
 
 	return "", errors.New("FIR NOT FOUNDED")
 }
 
 func (f *FirService) DetectCountryByFIRCode(fir string) string {
-	log.Debug().Interface("fir", fir).Msg("Get country by fir code")
+	log.Trace().Interface("fir", fir).Msg("Get country by fir code")
 
 	country := f.firsCountry[fir]
 
 	if country == nil {
-		log.Debug().Interface("fir", fir).Msg("Country not founded")
+		log.Trace().Interface("fir", fir).Msg("Country not founded")
 		return "UNKNOWN"
 	}
 
@@ -168,7 +168,7 @@ func (f *FirService) DetectCountryByFIRCode(fir string) string {
 }
 
 func (f *FirService) DetectCountryByPoint(point domain.Point) (string, error) {
-	log.Debug().Interface("point", point).Msg("Get country by point")
+	log.Trace().Interface("point", point).Msg("Get country by point")
 
 	if f.firsMap == nil {
 		log.Error().Msg("FIRs not loaded")
@@ -181,7 +181,7 @@ func (f *FirService) DetectCountryByPoint(point domain.Point) (string, error) {
 		}
 	}
 
-	log.Debug().Interface("point", point).Msg("Fir not founded")
+	log.Trace().Interface("point", point).Msg("Fir not founded")
 
 	return "", errors.New("FIR NOT FOUNDED")
 }

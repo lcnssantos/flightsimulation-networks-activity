@@ -1,8 +1,13 @@
 package ivao
 
-import "github.com/lcnssantos/online-activity/internal/domain"
+import (
+	"sync"
+
+	"github.com/lcnssantos/online-activity/internal/domain"
+)
 
 type count struct {
+	sync.Mutex
 	data map[string]*domain.Activity
 }
 
@@ -13,6 +18,9 @@ func newCount() *count {
 }
 
 func (c *count) increment(id string, connType string) {
+	c.Lock()
+	defer c.Unlock()
+
 	if _, ok := c.data[id]; !ok {
 		c.data[id] = &domain.Activity{
 			Pilot: 0,

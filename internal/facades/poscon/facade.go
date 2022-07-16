@@ -2,18 +2,28 @@ package poscon
 
 import (
 	"context"
+	"sync"
+	"time"
+
 	"github.com/rs/zerolog/log"
 
 	"github.com/lcnssantos/online-activity/internal/app"
+	"github.com/lcnssantos/online-activity/internal/configuration"
 	"github.com/lcnssantos/online-activity/internal/domain"
 	"github.com/lcnssantos/online-activity/internal/infra/httpclient"
 )
 
 const whazzup = "https://hqapi.poscon.net/online.json"
 
+type cache struct {
+	data       *posconData
+	expiration time.Time
+}
 type Poscon struct {
+	sync.Mutex
 	httpClient httpclient.HttpClient
 	firService app.FirService
+	data       *cache
 }
 
 func NewPoscon(httpCLient httpclient.HttpClient, firService app.FirService) *Poscon {
@@ -21,6 +31,13 @@ func NewPoscon(httpCLient httpclient.HttpClient, firService app.FirService) *Pos
 }
 
 func (p *Poscon) loadData(ctx context.Context) (*posconData, error) {
+	p.Lock()
+	defer p.Unlock()
+
+	if p.data != nil && time.Now().Before(p.data.expiration) {
+		return p.data.data, nil
+	}
+
 	var posconData posconData
 
 	log.Debug().Msg("Loading POSCON Data")
@@ -30,6 +47,11 @@ func (p *Poscon) loadData(ctx context.Context) (*posconData, error) {
 	if err != nil {
 		log.Error().Err(err).Msg("Loading POSCON Data")
 		return nil, err
+	}
+
+	p.data = &cache{
+		data:       &posconData,
+		expiration: time.Now().Add(time.Minute * time.Duration(configuration.Environment.GetCacheTime())),
 	}
 
 	return &posconData, nil
@@ -113,34 +135,50 @@ func (p *Poscon) GetGeoActivity(ctx context.Context) (*domain.GeoActivity, error
 
 	count := newCount()
 
+	wg := sync.WaitGroup{}
+
+	wg.Add(len(data.Flights) + len(data.Atc))
+
 	for _, pilot := range data.Flights {
-		if pilot.Position == nil {
-			count.increment("UNKNOWN", "pilot")
-			break
-		}
+		go func(pilot posconFlight) {
+			defer wg.Done()
 
-		country, err := p.firService.DetectCountryByPoint(domain.Point{
-			Lat: pilot.Position.Lat,
-			Lon: pilot.Position.Long,
-		})
+			if pilot.Position == nil {
+				count.increment("UNKNOWN", "pilot")
+				return
+			}
 
-		if err != nil {
-			count.increment("UNKNOWN", "pilot")
-		} else {
+			country, err := p.firService.DetectCountryByPoint(domain.Point{
+				Lat: pilot.Position.Lat,
+				Lon: pilot.Position.Long,
+			})
+
+			if err != nil {
+				count.increment("UNKNOWN", "pilot")
+				return
+			}
+
 			count.increment(country, "pilot")
-		}
+
+		}(pilot)
 	}
 
 	for _, atc := range data.Atc {
-		if atc.CenterPoint == nil || len(*atc.CenterPoint) == 0 {
-			count.increment("UNKNOWN", "atc")
-			break
-		}
+		go func(atc posconATC) {
+			defer wg.Done()
 
-		country := p.firService.DetectCountryByFIRCode(atc.Fir)
+			if atc.CenterPoint == nil || len(*atc.CenterPoint) == 0 {
+				count.increment("UNKNOWN", "atc")
+				return
+			}
 
-		count.increment(country, "atc")
+			country := p.firService.DetectCountryByFIRCode(atc.Fir)
+
+			count.increment(country, "atc")
+		}(atc)
 	}
+
+	wg.Wait()
 
 	countData := count.get()
 

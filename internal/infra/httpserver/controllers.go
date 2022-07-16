@@ -141,17 +141,26 @@ func (t *Controller) GetGeoHistoryByMinutes(ctx *gin.Context) {
 
 func (t *Controller) saveCurrent(ctx *gin.Context) {
 	asyncTasks := concurrency.ExecuteConcurrentTasks(
-		func() (interface{}, error) {
-			err := t.appService.SaveActivity(ctx)
-			return nil, err
+		concurrency.TaskInput{
+			Task: func() (interface{}, error) {
+				err := t.appService.SaveActivity(ctx)
+				return nil, err
+			},
+			Tag: "save-activity",
 		},
-		func() (interface{}, error) {
-			err := t.appService.SaveBrazilActivity(ctx)
-			return nil, err
+		concurrency.TaskInput{
+			Task: func() (interface{}, error) {
+				err := t.appService.SaveBrazilActivity(ctx)
+				return nil, err
+			},
+			Tag: "save-brazil-activity",
 		},
-		func() (interface{}, error) {
-			err := t.appService.SaveGeoActivity(ctx)
-			return nil, err
+		concurrency.TaskInput{
+			Task: func() (interface{}, error) {
+				err := t.appService.SaveGeoActivity(ctx)
+				return nil, err
+			},
+			Tag: "save-geo-activity",
 		},
 	)
 
