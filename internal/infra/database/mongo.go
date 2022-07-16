@@ -4,6 +4,7 @@ import (
 	"context"
 	"time"
 
+	"github.com/rs/zerolog/log"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -20,8 +21,11 @@ func NewMongoDriver(connectionString string, dbName string) MongoDriver {
 
 func (d MongoDriver) GetClient() (*mongo.Client, error) {
 	if d.client != nil {
+		log.Info().Msg("MongoDB client already exists")
 		return d.client, nil
 	}
+
+	log.Info().Msg("Creating MongoDB client")
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(20)*time.Second)
 

@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+
 	"github.com/joho/godotenv"
 	"github.com/lcnssantos/online-activity/internal/app"
 	"github.com/lcnssantos/online-activity/internal/configuration"
@@ -18,7 +19,7 @@ import (
 func main() {
 	godotenv.Load()
 
-	zerolog.SetGlobalLevel(zerolog.ErrorLevel)
+	zerolog.SetGlobalLevel(zerolog.InfoLevel)
 
 	configuration.LoadEnv()
 
