@@ -1,6 +1,7 @@
 package app
 
 import (
+	geo "github.com/kellydunn/golang-geo"
 	"github.com/lcnssantos/online-activity/internal/domain"
 )
 
@@ -12,23 +13,11 @@ func NewGeoService() GeoService {
 }
 
 func (g GeoService) IsInside(points []domain.Point, _point domain.Point) bool {
-	polygon := make([][]float64, 0)
+	polygon := geo.NewPolygon(nil)
 
-	for _, p := range points {
-		polygon = append(polygon, []float64{p.Lon, p.Lat})
+	for _, point := range points {
+		polygon.Add(geo.NewPoint(point.Lat, point.Lon))
 	}
 
-	point := []float64{_point.Lon, _point.Lat}
-
-	result := false
-
-	for i, j := 0, len(polygon)-1; i < len(polygon); i++ {
-		if (polygon[i][1] > point[1]) != (polygon[j][1] > point[1]) &&
-			point[0] < ((polygon[j][0]-polygon[i][0])*(point[1]-polygon[i][1]))/(polygon[j][1]-polygon[i][1])+polygon[i][0] {
-			result = !result
-		}
-		j = i
-	}
-
-	return result
+	return polygon.Contains(geo.NewPoint(_point.Lat, _point.Lon))
 }
