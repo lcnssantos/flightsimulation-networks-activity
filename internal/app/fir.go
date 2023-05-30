@@ -8,14 +8,15 @@ import (
 	"os"
 	"strings"
 
+	"github.com/rs/zerolog/log"
+
 	"github.com/lcnssantos/online-activity/internal/domain"
 	"github.com/lcnssantos/online-activity/internal/infra/httpclient"
-	"github.com/rs/zerolog/log"
 )
 
 type GeoFeatureProperty struct {
 	ID       string `json:"id"`
-	Oceanic  string `json:"oceanic"`
+	Oceanic  any    `json:"oceanic"`
 	LabelLon string `json:"label_lon"`
 	LabelLat string `json:"label_lat"`
 	Region   string `json:"region"`

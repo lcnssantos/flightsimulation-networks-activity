@@ -1,6 +1,9 @@
 package main
 
 import (
+	"context"
+
+	"github.com/joho/godotenv"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 
@@ -17,9 +20,14 @@ import (
 func main() {
 	zerolog.SetGlobalLevel(zerolog.DebugLevel)
 
+	err := godotenv.Load()
+	if err != nil {
+		log.Panic().Msg("Error loading .env file")
+	}
+
 	configuration.LoadEnv()
 
-	err := configuration.Environment.Validate()
+	err = configuration.Environment.Validate()
 
 	if err != nil {
 		log.Panic().Err(err).Msg("Error to load environment variables")
@@ -29,11 +37,11 @@ func main() {
 	geoService := app.NewGeoService()
 	firService := app.NewFirService(geoService, httpClient)
 
-	// err = firService.LoadFirData(context.Background())
+	err = firService.LoadFirData(context.Background())
 
-	// if err != nil {
-	// 	log.Panic().Err(err).Msg("Error to load fir data")
-	// }
+	if err != nil {
+		log.Panic().Err(err).Msg("Error to load fir data")
+	}
 
 	ivaoFacade := ivao.NewIVAO(httpClient, firService)
 	vatsimFacade := vatsim.NewVatsim(httpClient, firService)
