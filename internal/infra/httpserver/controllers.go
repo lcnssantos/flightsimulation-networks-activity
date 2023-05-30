@@ -4,11 +4,11 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/lcnssantos/online-activity/internal/infra/concurrency"
+	"github.com/gin-gonic/gin"
 	"github.com/rs/zerolog/log"
 
-	"github.com/gin-gonic/gin"
 	"github.com/lcnssantos/online-activity/internal/app"
+	"github.com/lcnssantos/online-activity/internal/infra/concurrency"
 )
 
 type Controller struct {
@@ -41,16 +41,16 @@ func (t *Controller) GetBrazilActivity(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, brazilActivity)
 }
 
-func (t *Controller) GetGeoActivity(ctx *gin.Context) {
-	geoActivity, err := t.appService.GetGeoActivity(ctx)
+// func (t *Controller) GetGeoActivity(ctx *gin.Context) {
+// 	geoActivity, err := t.appService.GetGeoActivity(ctx)
 
-	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, err)
-		return
-	}
+// 	if err != nil {
+// 		ctx.JSON(http.StatusInternalServerError, err)
+// 		return
+// 	}
 
-	ctx.JSON(http.StatusOK, geoActivity)
-}
+// 	ctx.JSON(http.StatusOK, geoActivity)
+// }
 
 func (t *Controller) Get24hHistory(ctx *gin.Context) {
 	activities, err := t.appService.GetHistoryByMinutes(ctx, 24*60)
@@ -110,34 +110,34 @@ func (t *Controller) GetBrazilHistoryByMinutes(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, activities)
 }
 
-func (t *Controller) GetGeo24hHistory(ctx *gin.Context) {
-	activities, err := t.appService.GetGeoHistoryByMinutes(ctx, 24*60)
+// func (t *Controller) GetGeo24hHistory(ctx *gin.Context) {
+// 	activities, err := t.appService.GetGeoHistoryByMinutes(ctx, 24*60)
 
-	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, err)
-		return
-	}
+// 	if err != nil {
+// 		ctx.JSON(http.StatusInternalServerError, err)
+// 		return
+// 	}
 
-	ctx.JSON(http.StatusOK, activities)
-}
+// 	ctx.JSON(http.StatusOK, activities)
+// }
 
-func (t *Controller) GetGeoHistoryByMinutes(ctx *gin.Context) {
-	minutes, err := strconv.Atoi(ctx.Param("minutes"))
+// func (t *Controller) GetGeoHistoryByMinutes(ctx *gin.Context) {
+// 	minutes, err := strconv.Atoi(ctx.Param("minutes"))
 
-	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, err)
-		return
-	}
+// 	if err != nil {
+// 		ctx.JSON(http.StatusInternalServerError, err)
+// 		return
+// 	}
 
-	activities, err := t.appService.GetGeoHistoryByMinutes(ctx, int64(minutes))
+// 	activities, err := t.appService.GetGeoHistoryByMinutes(ctx, int64(minutes))
 
-	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, err)
-		return
-	}
+// 	if err != nil {
+// 		ctx.JSON(http.StatusInternalServerError, err)
+// 		return
+// 	}
 
-	ctx.JSON(http.StatusOK, activities)
-}
+// 	ctx.JSON(http.StatusOK, activities)
+// }
 
 func (t *Controller) saveCurrent(ctx *gin.Context) {
 	asyncTasks := concurrency.ExecuteConcurrentTasks(
