@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 
-	"github.com/joho/godotenv"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 
@@ -20,14 +19,14 @@ import (
 func main() {
 	zerolog.SetGlobalLevel(zerolog.DebugLevel)
 
-	err := godotenv.Load()
-	if err != nil {
-		log.Panic().Msg("Error loading .env file")
-	}
+	// err := godotenv.Load()
+	// if err != nil {
+	// 	log.Panic().Msg("Error loading .env file")
+	// }
 
 	configuration.LoadEnv()
 
-	err = configuration.Environment.Validate()
+	err := configuration.Environment.Validate()
 
 	if err != nil {
 		log.Panic().Err(err).Msg("Error to load environment variables")
